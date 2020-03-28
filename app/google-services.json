@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "724938055580",
+    "firebase_url": "https://vegantranslations-e2a45.firebaseio.com",
+    "project_id": "vegantranslations-e2a45",
+    "storage_bucket": "vegantranslations-e2a45.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:724938055580:android:02c1fb87d0f74b7f4db259",
+        "android_client_info": {
+          "package_name": "com.example.vegantranslations"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "724938055580-udhaq1idgop1vt3p3r92k5ieqho2bc4u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAv06Dw1d6X9IV4Yus-jePkFsnOX-iSBVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "724938055580-udhaq1idgop1vt3p3r92k5ieqho2bc4u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
