@@ -12,4 +12,9 @@ public class NonVeganProduct {
     public NonVeganProduct(Map<String, Object> fields) {
         this.name = (String) fields.get("name");
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

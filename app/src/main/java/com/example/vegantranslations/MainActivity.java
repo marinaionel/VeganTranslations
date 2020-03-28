@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         final ArrayList<NonVeganProduct> nonVeganProducts = new ArrayList<>();
 
-        db.collection("users")
+        db.collection("products")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Spinner products = findViewById(R.id.products);
-        ArrayAdapter<String> productsAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, nonVeganProducts);
+        ArrayAdapter<NonVeganProduct> productsAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, nonVeganProducts);
         products.setAdapter(productsAdapter);
 
         // Create a new user with a first and last name
