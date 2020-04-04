@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("TAG", document.getId() + " => " + document.getData());
-                                nonVeganProducts.add(new NonVeganProduct(document.getData(), document.getId()));
+                                nonVeganProducts.add(new NonVeganProduct(document.getData().get("name").toString(), document.getId(), document.get("category_id").toString()));
                             }
                             prepareListOfProducts(nonVeganProducts);
                         } else {
@@ -59,6 +59,5 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<NonVeganProduct> productsAdapter = new ArrayAdapter<NonVeganProduct>(getApplicationContext(), android.R.layout.simple_spinner_item, nonVeganProducts);
         products.setAdapter(productsAdapter);
 
-        products
     }
 }

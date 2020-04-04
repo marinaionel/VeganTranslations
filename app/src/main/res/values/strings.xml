@@ -2,6 +2,7 @@
     <string name="app_name">VeganTranslations</string>
     <string name="enter_the_amount_in_g">Enter the amount (in g)</string>
     <string name="choose_a_product">Choose a product</string>
-    <string name="select_purpose">Select purpose</string>
     <string name="make_it_vegan">Make it vegan</string>
+    <string name="select_purpose">Select purpose</string>
+    <string name="todo">TODO</string>
 </resources>
