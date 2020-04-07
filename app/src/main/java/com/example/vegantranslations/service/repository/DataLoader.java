@@ -1,12 +1,12 @@
-package com.example.vegantranslations.localstorage;
+package com.example.vegantranslations.service.repository;
 
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.vegantranslations.model.Category;
-import com.example.vegantranslations.model.NonVeganProduct;
-import com.example.vegantranslations.model.Purpose;
+import com.example.vegantranslations.service.model.db.Category;
+import com.example.vegantranslations.service.model.db.NonVeganProduct;
+import com.example.vegantranslations.service.model.db.Purpose;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -16,9 +16,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.vegantranslations.repository.Collections.CATEGORY;
-import static com.example.vegantranslations.repository.Collections.NON_VEGAN_PRODUCTS;
-import static com.example.vegantranslations.repository.Collections.PURPOSE;
+import static com.example.vegantranslations.service.Collections.CATEGORY;
+import static com.example.vegantranslations.service.Collections.NON_VEGAN_PRODUCTS;
+import static com.example.vegantranslations.service.Collections.PURPOSE;
 
 public class DataLoader {
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -26,6 +26,16 @@ public class DataLoader {
     private Map<String, NonVeganProduct> nonVeganProductMap = new HashMap<>();
     private Map<String, Purpose> purposeMap = new HashMap<>();
     private final String TAG = "Data Loader";
+    private static DataLoader instance = null;
+
+    private DataLoader() {
+        populateLocalDatabaseFromFirebase();
+    }
+
+    public static DataLoader getInstance() {
+        if (instance == null) instance = new DataLoader();
+        return instance;
+    }
 
     public void populateLocalDatabaseFromFirebase() {
         firestore.collection(CATEGORY)

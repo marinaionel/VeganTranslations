@@ -1,16 +1,19 @@
-package com.example.vegantranslations;
+package com.example.vegantranslations.view.ui;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.example.vegantranslations.model.NonVeganProduct;
+import com.example.vegantranslations.R;
+import com.example.vegantranslations.service.model.db.NonVeganProduct;
+import com.example.vegantranslations.viewModel.MainActivityViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,13 +23,17 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.vegantranslations.repository.Collections.NON_VEGAN_PRODUCTS;
+import static com.example.vegantranslations.service.Collections.NON_VEGAN_PRODUCTS;
 
 public class MainActivity extends AppCompatActivity {
+    private AndroidViewModel mainActivityViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
+
+        mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
         final List<NonVeganProduct> nonVeganProducts = new ArrayList<>();
 
@@ -56,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("asd", nonVeganProducts.size() + "");
 
         Spinner products = findViewById(R.id.products);
-        ArrayAdapter<NonVeganProduct> productsAdapter = new ArrayAdapter<NonVeganProduct>(getApplicationContext(), android.R.layout.simple_spinner_item, nonVeganProducts);
+        ArrayAdapter<NonVeganProduct> productsAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, nonVeganProducts);
         products.setAdapter(productsAdapter);
 
     }

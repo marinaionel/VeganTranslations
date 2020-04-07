@@ -1,17 +1,15 @@
-package com.example.vegantranslations.model;
+package com.example.vegantranslations.service.model.db;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
 
-@Entity(tableName = "non_vegan_products_category")
-public class Category {
-    @PrimaryKey
+@Entity(tableName = "purpose")
+public class Purpose {
     private String id;
     private String name;
 
     @Ignore
-    public Category(String id, String name) {
+    public Purpose(String id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -19,6 +17,6 @@ public class Category {
     /**
      * No args constructor for use in serialization
      */
-    public Category() {
+    public Purpose() {
     }
 }

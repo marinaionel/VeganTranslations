@@ -1,4 +1,4 @@
-package com.example.vegantranslations.localstorage.dao;
+package com.example.vegantranslations.service.local.dao;
 
 import androidx.room.Dao;
 

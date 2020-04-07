@@ -1,6 +1,4 @@
-package com.example.vegantranslations.localstorage;
-
-import static org.junit.jupiter.api.Assertions.*;
+package com.example.vegantranslations.service.local;
 
 class DataLoaderTest {
 
