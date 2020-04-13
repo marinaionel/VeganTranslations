@@ -2,8 +2,12 @@ package com.example.vegantranslations.view.ui;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -16,11 +20,15 @@ import com.example.vegantranslations.R;
 import com.example.vegantranslations.service.model.db.NonVeganProduct;
 import com.example.vegantranslations.service.model.db.Purpose;
 import com.example.vegantranslations.viewModel.MainActivityViewModel;
+import com.gc.materialdesign.views.ButtonFlat;
+import com.gc.materialdesign.views.ButtonRectangle;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.unstoppable.submitbuttonview.SubmitButton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,8 +38,9 @@ import static com.example.vegantranslations.service.Collections.NON_VEGAN_PRODUC
 
 public class MainActivity extends AppCompatActivity {
     private MainActivityViewModel mainActivityViewModel;
-    private Spinner products;
-    private Spinner purposes;
+    private MaterialSpinner products;
+    private MaterialSpinner purposes;
+    private SubmitButton makeItVegan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,5 +79,17 @@ public class MainActivity extends AppCompatActivity {
                 purposeArrayAdapter.notifyDataSetChanged();
             }
         });
+
+        makeItVegan = findViewById(R.id.makeItVegan);
+        makeItVegan.reset();
+//        final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.milkshake);
+//        makeItVegan.setAnimation(myAnim);
+        makeItVegan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                v.startAnimation(myAnim);
+            }
+        });
+
     }
 }

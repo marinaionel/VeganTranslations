@@ -42,4 +42,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation 'com.github.navasmdc:MaterialDesign:1.5@aar'
+    implementation 'com.jaredrummler:material-spinner:1.3.1'
+    implementation 'com.unstoppable:submitbutton:1.1.3'
 }
