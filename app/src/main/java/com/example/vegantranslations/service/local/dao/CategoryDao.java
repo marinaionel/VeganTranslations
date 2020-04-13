@@ -8,21 +8,21 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.vegantranslations.service.Collections;
-import com.example.vegantranslations.service.model.db.NonVeganProduct;
+import com.example.vegantranslations.service.model.db.Category;
 
 import java.util.List;
 
 @Dao
-public interface NonVeganProductDao {
-    @Query("select * from " + Collections.NON_VEGAN_PRODUCTS)
-    LiveData<List<NonVeganProduct>> getAll();
+public interface CategoryDao {
+    @Query("select * from " + Collections.CATEGORY)
+    LiveData<List<Category>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(NonVeganProduct... nonVeganProducts);
+    void insertAll(Category... categories);
 
     @Delete
-    void delete(NonVeganProduct nonVeganProduct);
+    void delete(Category nonVeganProduct);
 
-    @Query("DELETE FROM " + Collections.NON_VEGAN_PRODUCTS)
+    @Query("DELETE FROM " + Collections.CATEGORY)
     void deleteAll();
 }

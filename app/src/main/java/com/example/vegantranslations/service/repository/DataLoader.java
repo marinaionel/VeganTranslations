@@ -1,9 +1,12 @@
 package com.example.vegantranslations.service.repository;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.vegantranslations.service.local.AppDatabase;
 import com.example.vegantranslations.service.model.db.Category;
 import com.example.vegantranslations.service.model.db.NonVeganProduct;
 import com.example.vegantranslations.service.model.db.Purpose;
@@ -20,24 +23,33 @@ import static com.example.vegantranslations.service.Collections.CATEGORY;
 import static com.example.vegantranslations.service.Collections.NON_VEGAN_PRODUCTS;
 import static com.example.vegantranslations.service.Collections.PURPOSE;
 
-public class DataLoader {
+public class DataLoader extends AsyncTask<Object, Object, Object> {
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private Map<String, Category> categoryMap = new HashMap<>();
     private Map<String, NonVeganProduct> nonVeganProductMap = new HashMap<>();
     private Map<String, Purpose> purposeMap = new HashMap<>();
     private final String TAG = "Data Loader";
     private static DataLoader instance = null;
+    private static AppDatabase appDatabase;
 
     private DataLoader() {
         populateLocalDatabaseFromFirebase();
     }
 
-    public static DataLoader getInstance() {
-        if (instance == null) instance = new DataLoader();
+    @Override
+    protected Object doInBackground(Object... objects) {
+        return null;
+    }
+
+    public static DataLoader getInstance(Context context) {
+        if (instance == null) {
+            instance = new DataLoader();
+            appDatabase = AppDatabase.getAppDatabase(context);
+        }
         return instance;
     }
 
-    public void populateLocalDatabaseFromFirebase() {
+    private void populateLocalDatabaseFromFirebase() {
         firestore.collection(CATEGORY)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -48,7 +60,7 @@ public class DataLoader {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 String id = document.getId();
                                 Category tmp = new Category(id, (String) document.get("name"));
-                                categoryMap.put(id, tmp);
+                                appDatabase.categoryDao().insertAll(tmp);
                             }
                             loadProducts();
                         } else {
@@ -67,7 +79,7 @@ public class DataLoader {
                         Log.d(TAG, document.getId() + " => " + document.getData());
                         String id = document.getId();
                         NonVeganProduct tmp = new NonVeganProduct((String) document.get("name"), document.getId(), (String) document.get("category_id"));
-                        nonVeganProductMap.put(id, tmp);
+                        appDatabase.nonVeganProductDao().insertAll(tmp);
                     }
                     loadPurposes();
                 } else {
@@ -86,7 +98,7 @@ public class DataLoader {
                         Log.d(TAG, document.getId() + " => " + document.getData());
                         String id = document.getId();
                         Purpose tmp = new Purpose(document.getId(), (String) document.get("name"));
-                        purposeMap.put(id, tmp);
+                        appDatabase.purposeDao().insertAll(tmp);
                     }
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());

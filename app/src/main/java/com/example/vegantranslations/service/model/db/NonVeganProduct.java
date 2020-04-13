@@ -1,5 +1,6 @@
 package com.example.vegantranslations.service.model.db;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -12,10 +13,27 @@ import static androidx.room.ForeignKey.CASCADE;
 public class NonVeganProduct {
     private String name;
     @PrimaryKey
+    @NonNull
     private String id;
     @ForeignKey(entity = Category.class, parentColumns = "category_id", childColumns = "id", onDelete = CASCADE)
     @ColumnInfo(name = "category_id")
     private String categoryId;
+
+    public void setId(@NonNull String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public String getName() {
+        return name;
+    }
 
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
