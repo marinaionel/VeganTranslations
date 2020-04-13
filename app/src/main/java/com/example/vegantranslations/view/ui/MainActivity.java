@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         makeItVegan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                makeItVegan.doResult(true);
 //                v.startAnimation(myAnim);
             }
         });
