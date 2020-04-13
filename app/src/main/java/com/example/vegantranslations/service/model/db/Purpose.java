@@ -7,7 +7,8 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "purpose")
 public class Purpose {
-    @PrimaryKey @NonNull
+    @PrimaryKey
+    @NonNull
     private String id;
     private String name;
 
@@ -38,5 +39,10 @@ public class Purpose {
      * No args constructor for use in serialization
      */
     public Purpose() {
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
