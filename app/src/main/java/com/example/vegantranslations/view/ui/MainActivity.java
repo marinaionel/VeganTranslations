@@ -38,8 +38,10 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        products = findViewById(R.id.products);
+
         mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+
+        products = findViewById(R.id.products);
         final ArrayAdapter<NonVeganProduct> productsAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, new ArrayList<NonVeganProduct>());
         products.setAdapter(productsAdapter);
         mainActivityViewModel.getNonVeganProducts().observe(this, new Observer<List<NonVeganProduct>>() {
