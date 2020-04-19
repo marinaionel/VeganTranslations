@@ -1,15 +1,14 @@
-package com.example.vegantranslations.service.repository;
+package com.example.vegantranslations.data.repository;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.vegantranslations.service.local.AppDatabase;
-import com.example.vegantranslations.service.model.db.Category;
-import com.example.vegantranslations.service.model.db.NonVeganProduct;
-import com.example.vegantranslations.service.model.db.Purpose;
+import com.example.vegantranslations.data.local.AppDatabase;
+import com.example.vegantranslations.data.model.db.Category;
+import com.example.vegantranslations.data.model.db.NonVeganProduct;
+import com.example.vegantranslations.data.model.db.Purpose;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -19,9 +18,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.vegantranslations.service.Collections.CATEGORY;
-import static com.example.vegantranslations.service.Collections.NON_VEGAN_PRODUCTS;
-import static com.example.vegantranslations.service.Collections.PURPOSE;
+import static com.example.vegantranslations.data.Collections.CATEGORY;
+import static com.example.vegantranslations.data.Collections.NON_VEGAN_PRODUCTS;
+import static com.example.vegantranslations.data.Collections.PURPOSE;
 
 public class DataLoader {
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -36,7 +35,7 @@ public class DataLoader {
         populateLocalDatabaseFromFirebase();
     }
 
-    public static DataLoader getInstance(Context context) {
+    public static synchronized DataLoader getInstance(Context context) {
         if (instance == null) {
             instance = new DataLoader();
             appDatabase = AppDatabase.getAppDatabase(context);

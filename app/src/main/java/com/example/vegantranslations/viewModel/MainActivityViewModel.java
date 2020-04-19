@@ -5,12 +5,11 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import com.example.vegantranslations.service.local.AppDatabase;
-import com.example.vegantranslations.service.model.db.NonVeganProduct;
-import com.example.vegantranslations.service.model.db.Purpose;
-import com.example.vegantranslations.service.repository.DataLoader;
+import com.example.vegantranslations.data.local.AppDatabase;
+import com.example.vegantranslations.data.model.db.NonVeganProduct;
+import com.example.vegantranslations.data.model.db.Purpose;
+import com.example.vegantranslations.data.repository.DataLoader;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.vegantranslations.service.repository;
+package com.example.vegantranslations.data.network;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,22 +9,20 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
-public class GetImagesFromAPI {
-    private final String API_URL = "https://serpapi.com/search?q=";
-    private final String QUERY_STATIC_PARAMS = "&tbm=isch&ijn=0";
-    private static GetImagesFromAPI instance;
+public class RequestQueueSingleton {
+    private static RequestQueueSingleton instance;
     private RequestQueue requestQueue;
     private ImageLoader imageLoader;
     private static Context ctx;
 
-    private GetImagesFromAPI(Context context) {
+    private RequestQueueSingleton(Context context) {
         ctx = context;
         requestQueue = getRequestQueue();
 
         imageLoader = new ImageLoader(requestQueue,
                 new ImageLoader.ImageCache() {
                     private final LruCache<String, Bitmap>
-                            cache = new LruCache<String, Bitmap>(20);
+                            cache = new LruCache<>(20);
 
                     @Override
                     public Bitmap getBitmap(String url) {
@@ -38,14 +36,14 @@ public class GetImagesFromAPI {
                 });
     }
 
-    public static synchronized GetImagesFromAPI getInstance(Context context) {
+    public static synchronized RequestQueueSingleton getInstance(Context context) {
         if (instance == null) {
-            instance = new GetImagesFromAPI(context);
+            instance = new RequestQueueSingleton(context);
         }
         return instance;
     }
 
-    public RequestQueue getRequestQueue() {
+    public synchronized RequestQueue getRequestQueue() {
         if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(ctx.getApplicationContext());
         }

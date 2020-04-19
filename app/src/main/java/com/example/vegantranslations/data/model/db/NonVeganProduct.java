@@ -1,4 +1,4 @@
-package com.example.vegantranslations.service.model.db;
+package com.example.vegantranslations.data.model.db;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

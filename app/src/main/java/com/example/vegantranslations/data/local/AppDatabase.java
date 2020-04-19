@@ -1,4 +1,4 @@
-package com.example.vegantranslations.service.local;
+package com.example.vegantranslations.data.local;
 
 import android.content.Context;
 
@@ -6,12 +6,12 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.vegantranslations.service.local.dao.CategoryDao;
-import com.example.vegantranslations.service.local.dao.NonVeganProductDao;
-import com.example.vegantranslations.service.local.dao.PurposeDao;
-import com.example.vegantranslations.service.model.db.Category;
-import com.example.vegantranslations.service.model.db.NonVeganProduct;
-import com.example.vegantranslations.service.model.db.Purpose;
+import com.example.vegantranslations.data.local.dao.CategoryDao;
+import com.example.vegantranslations.data.local.dao.NonVeganProductDao;
+import com.example.vegantranslations.data.local.dao.PurposeDao;
+import com.example.vegantranslations.data.model.db.Category;
+import com.example.vegantranslations.data.model.db.NonVeganProduct;
+import com.example.vegantranslations.data.model.db.Purpose;
 
 @Database(entities = {NonVeganProduct.class, Category.class, Purpose.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {

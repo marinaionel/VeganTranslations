@@ -11,8 +11,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.vegantranslations.R;
-import com.example.vegantranslations.service.model.db.NonVeganProduct;
-import com.example.vegantranslations.service.model.db.Purpose;
+import com.example.vegantranslations.data.model.db.NonVeganProduct;
+import com.example.vegantranslations.data.model.db.Purpose;
 import com.example.vegantranslations.viewModel.MainActivityViewModel;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.unstoppable.submitbuttonview.SubmitButton;
