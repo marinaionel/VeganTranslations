@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.view.animation.Animation;
 import android.widget.ArrayAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,27 +66,12 @@ public class MainActivity extends AppCompatActivity {
 
         makeItVegan = findViewById(R.id.makeItVegan);
         makeItVegan.reset();
+//        Log.d("MainActivity------", String.valueOf(makeItVegan.getAnimation()));
         makeItVegan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeItVegan.getAnimation().setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        Intent myIntent = new Intent(MainActivity.this, ShowResultsActivity.class);
-                        MainActivity.this.startActivityForResult(myIntent, 1);
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-                });
-
+                Intent myIntent = new Intent(MainActivity.this, ShowResultsActivity.class);
+                MainActivity.this.startActivityForResult(myIntent, 1);
                 makeItVegan.doResult(true);
             }
         });

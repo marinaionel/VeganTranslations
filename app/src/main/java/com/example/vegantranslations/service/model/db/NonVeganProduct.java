@@ -7,6 +7,8 @@ import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.List;
+
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "non_vegan_products")
@@ -18,6 +20,15 @@ public class NonVeganProduct {
     @ForeignKey(entity = Category.class, parentColumns = "category_id", childColumns = "id", onDelete = CASCADE)
     @ColumnInfo(name = "category_id")
     private String categoryId;
+    private List<Purpose> purposes;
+
+    public List<Purpose> getPurposes() {
+        return purposes;
+    }
+
+    public void setPurposes(List<Purpose> purposes) {
+        this.purposes = purposes;
+    }
 
     public void setId(@NonNull String id) {
         this.id = id;

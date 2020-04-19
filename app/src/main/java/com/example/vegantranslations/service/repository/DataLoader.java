@@ -23,7 +23,7 @@ import static com.example.vegantranslations.service.Collections.CATEGORY;
 import static com.example.vegantranslations.service.Collections.NON_VEGAN_PRODUCTS;
 import static com.example.vegantranslations.service.Collections.PURPOSE;
 
-public class DataLoader extends AsyncTask<Object, Object, Object> {
+public class DataLoader {
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private Map<String, Category> categoryMap = new HashMap<>();
     private Map<String, NonVeganProduct> nonVeganProductMap = new HashMap<>();
@@ -34,11 +34,6 @@ public class DataLoader extends AsyncTask<Object, Object, Object> {
 
     private DataLoader() {
         populateLocalDatabaseFromFirebase();
-    }
-
-    @Override
-    protected Object doInBackground(Object... objects) {
-        return null;
     }
 
     public static DataLoader getInstance(Context context) {
@@ -68,6 +63,7 @@ public class DataLoader extends AsyncTask<Object, Object, Object> {
                         }
                     }
                 });
+        loadPurposes();
     }
 
     private void loadProducts() {
@@ -81,7 +77,6 @@ public class DataLoader extends AsyncTask<Object, Object, Object> {
                         NonVeganProduct tmp = new NonVeganProduct((String) document.get("name"), document.getId(), (String) document.get("category_id"));
                         appDatabase.nonVeganProductDao().insertAll(tmp);
                     }
-                    loadPurposes();
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }

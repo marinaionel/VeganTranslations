@@ -21,7 +21,7 @@ public interface CategoryDao {
     void insertAll(Category... categories);
 
     @Delete
-    void delete(Category nonVeganProduct);
+    void delete(Category category);
 
     @Query("DELETE FROM " + Collections.CATEGORY)
     void deleteAll();
