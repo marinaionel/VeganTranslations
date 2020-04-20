@@ -1,17 +1,26 @@
 package com.example.vegantranslations.view.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 
 import com.example.vegantranslations.R;
+import com.example.vegantranslations.view.adapters.ResultsAdapter;
+import com.example.vegantranslations.view.pojo.AlternativePojoAsRowItem;
 import com.example.vegantranslations.viewModel.ShowResultsViewModel;
+
+import java.util.List;
 
 public class ShowResultsActivity extends AppCompatActivity {
     private ShowResultsViewModel showResultsViewModel;
+    private RecyclerView recyclerView;
+    private ResultsAdapter resultsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +31,20 @@ public class ShowResultsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_results);
 
         showResultsViewModel = new ViewModelProvider(this).get(ShowResultsViewModel.class);
+
+        recyclerView = findViewById(R.id.resultsRecyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Observer<? super List<AlternativePojoAsRowItem>> alternativesUpdateObserver = new Observer<List<AlternativePojoAsRowItem>>() {
+            @Override
+            public void onChanged(List<AlternativePojoAsRowItem> alternativePojoAsRowItems) {
+                resultsAdapter = new ResultsAdapter(alternativePojoAsRowItems, getApplicationContext());
+                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                recyclerView.setAdapter(resultsAdapter);
+            }
+        };
+        showResultsViewModel.getAlternatives().observe(this, alternativesUpdateObserver);
+        recyclerView.setAdapter(resultsAdapter);
     }
 
     @Override

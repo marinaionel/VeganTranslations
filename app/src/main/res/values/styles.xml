@@ -9,4 +9,10 @@
         <item name="android:fontFamily">@font/open_sans_regular</item>
     </style>
 
+    <style name="AlternativeName">
+
+    </style>
+
+    <style name="AlternativeDescription"></style>
+
 </resources>

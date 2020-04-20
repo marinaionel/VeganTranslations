@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private MaterialSpinner products;
     private MaterialSpinner purposes;
     private SubmitButton makeItVegan;
+    private static String TAG = MainActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +67,13 @@ public class MainActivity extends AppCompatActivity {
 
         makeItVegan = findViewById(R.id.makeItVegan);
         makeItVegan.reset();
-//        Log.d("MainActivity------", String.valueOf(makeItVegan.getAnimation()));
+//        Log.d(TAG, String.valueOf(makeItVegan.getAnimation()));
         makeItVegan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(MainActivity.this, ShowResultsActivity.class);
+                myIntent.putExtra("product", products.getSelectedIndex());
+                myIntent.putExtra("purpose", purposes.getSelectedIndex());
                 MainActivity.this.startActivityForResult(myIntent, 1);
                 makeItVegan.doResult(true);
             }
