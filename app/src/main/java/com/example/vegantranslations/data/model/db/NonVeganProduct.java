@@ -6,6 +6,9 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.vegantranslations.data.converters.PurposeConverter;
 
 import java.util.List;
 
@@ -20,6 +23,7 @@ public class NonVeganProduct {
     @ForeignKey(entity = Category.class, parentColumns = "category_id", childColumns = "id", onDelete = CASCADE)
     @ColumnInfo(name = "category_id")
     private String categoryId;
+    @TypeConverters(PurposeConverter.class)
     private List<Purpose> purposes;
 
     public List<Purpose> getPurposes() {

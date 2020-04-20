@@ -11,8 +11,8 @@ import android.os.Bundle;
 import android.view.Window;
 
 import com.example.vegantranslations.R;
+import com.example.vegantranslations.data.model.db.Alternative;
 import com.example.vegantranslations.view.adapters.ResultsAdapter;
-import com.example.vegantranslations.view.pojo.AlternativePojoAsRowItem;
 import com.example.vegantranslations.viewModel.ShowResultsViewModel;
 
 import java.util.List;
@@ -35,10 +35,10 @@ public class ShowResultsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.resultsRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Observer<? super List<AlternativePojoAsRowItem>> alternativesUpdateObserver = new Observer<List<AlternativePojoAsRowItem>>() {
+        Observer<? super List<Alternative>> alternativesUpdateObserver = new Observer<List<Alternative>>() {
             @Override
-            public void onChanged(List<AlternativePojoAsRowItem> alternativePojoAsRowItems) {
-                resultsAdapter = new ResultsAdapter(alternativePojoAsRowItems, getApplicationContext());
+            public void onChanged(List<Alternative> alternatives) {
+                resultsAdapter = new ResultsAdapter(alternatives, getApplicationContext());
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 recyclerView.setAdapter(resultsAdapter);
             }

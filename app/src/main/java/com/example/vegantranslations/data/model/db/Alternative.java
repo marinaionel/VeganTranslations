@@ -12,6 +12,18 @@ public class Alternative {
     private String id;
     private String name;
     private String description;
+    @Ignore
+    private String imageUrl;
+
+    @Ignore
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    @Ignore
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     @Ignore
     public Alternative(@NonNull String id, String name, String description) {

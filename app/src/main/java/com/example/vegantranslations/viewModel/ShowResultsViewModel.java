@@ -11,8 +11,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.vegantranslations.data.model.db.Alternative;
 import com.example.vegantranslations.data.network.RequestQueueSingleton;
-import com.example.vegantranslations.view.pojo.AlternativePojoAsRowItem;
 
 import org.json.JSONObject;
 
@@ -24,7 +24,7 @@ import static com.example.vegantranslations.data.network.ApiConstants.QUERY_STAT
 public class ShowResultsViewModel extends AndroidViewModel {
     private RequestQueueSingleton requestQueueSingleton;
     private RequestQueue requestQueue;
-    private MutableLiveData<List<AlternativePojoAsRowItem>> alternatives;
+    private MutableLiveData<List<Alternative>> alternatives;
 
     public ShowResultsViewModel(@NonNull Application application) {
         super(application);
@@ -34,7 +34,7 @@ public class ShowResultsViewModel extends AndroidViewModel {
         requestQueue = requestQueueSingleton.getRequestQueue();
     }
 
-    public MutableLiveData<List<AlternativePojoAsRowItem>> getAlternatives() {
+    public MutableLiveData<List<Alternative>> getAlternatives() {
         return alternatives;
     }
 

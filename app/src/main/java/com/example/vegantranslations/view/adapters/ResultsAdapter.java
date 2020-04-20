@@ -13,15 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.vegantranslations.R;
-import com.example.vegantranslations.view.pojo.AlternativePojoAsRowItem;
+import com.example.vegantranslations.data.model.db.Alternative;
 
 import java.util.List;
 
 public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHolder> {
-    private List<AlternativePojoAsRowItem> alternatives;
+    private List<Alternative> alternatives;
     private Context context;
 
-    public ResultsAdapter(List<AlternativePojoAsRowItem> alternatives, Context context) {
+    public ResultsAdapter(List<Alternative> alternatives, Context context) {
         this.alternatives = alternatives;
         this.context = context;
     }
@@ -36,7 +36,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.title.setText(alternatives.get(position).getTitle());
+        holder.title.setText(alternatives.get(position).getName());
         holder.description.setText(alternatives.get(position).getDescription());
 
         Glide.with(this.context)
