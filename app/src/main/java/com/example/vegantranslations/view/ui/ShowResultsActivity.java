@@ -35,13 +35,10 @@ public class ShowResultsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.resultsRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Observer<? super List<Alternative>> alternativesUpdateObserver = new Observer<List<Alternative>>() {
-            @Override
-            public void onChanged(List<Alternative> alternatives) {
-                resultsAdapter = new ResultsAdapter(alternatives, getApplicationContext());
-                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                recyclerView.setAdapter(resultsAdapter);
-            }
+        Observer<? super List<Alternative>> alternativesUpdateObserver = (Observer<List<Alternative>>) alternatives -> {
+            resultsAdapter = new ResultsAdapter(alternatives, getApplicationContext());
+            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            recyclerView.setAdapter(resultsAdapter);
         };
         showResultsViewModel.getAlternatives().observe(this, alternativesUpdateObserver);
         recyclerView.setAdapter(resultsAdapter);

@@ -9,6 +9,8 @@ import androidx.room.Query;
 
 import com.example.vegantranslations.data.Collections;
 import com.example.vegantranslations.data.model.db.NonVeganProduct;
+import com.example.vegantranslations.data.model.db.ProductPurpose;
+import com.example.vegantranslations.data.model.db.Purpose;
 
 import java.util.List;
 
@@ -19,6 +21,15 @@ public interface NonVeganProductDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(NonVeganProduct... nonVeganProducts);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertProductPurpose(ProductPurpose... productPurposes);
+
+    @Query("select purpose.id, purpose.name from " + Collections.PURPOSE + " left join " + Collections.PRODUCT_PURPOSE + " on id=" + Collections.PRODUCT_PURPOSE + ".purpose_id where id=:id")
+    LiveData<List<Purpose>> getProductPurposes(String id);
+
+    @Query("select * from " + Collections.NON_VEGAN_PRODUCTS + " where id = :id")
+    LiveData<NonVeganProduct> getProductById(String id);
 
     @Delete
     void delete(NonVeganProduct nonVeganProduct);

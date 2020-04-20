@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private MaterialSpinner products;
     private MaterialSpinner purposes;
     private SubmitButton makeItVegan;
-    private static String TAG = MainActivity.class.getName();
+    private final String TAG = MainActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
