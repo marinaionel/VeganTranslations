@@ -16,10 +16,12 @@ import com.example.vegantranslations.R;
 import com.example.vegantranslations.data.model.db.Alternative;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHolder> {
     private List<Alternative> alternatives;
     private Context context;
+    private OnItemClickListener onItemClickListener;
 
     public ResultsAdapter(List<Alternative> alternatives, Context context) {
         this.alternatives = alternatives;
@@ -64,6 +66,19 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
             title = itemView.findViewById(R.id.rowTextTitle);
             description = itemView.findViewById(R.id.rowTextDescription);
             imageView = itemView.findViewById(R.id.rowImage);
+            itemView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (Objects.nonNull(onItemClickListener) && position != RecyclerView.NO_POSITION)
+                    onItemClickListener.onItemClick(alternatives.get(position));
+            });
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Alternative alternative);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }

@@ -2,11 +2,13 @@ package com.example.vegantranslations.view.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -14,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.vegantranslations.R;
 import com.example.vegantranslations.data.model.db.NonVeganProduct;
 import com.example.vegantranslations.data.model.db.Purpose;
+import com.example.vegantranslations.view.ui.ui.login.AdministratorLoginActivity;
 import com.example.vegantranslations.viewModel.MainActivityViewModel;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 import com.unstoppable.submitbuttonview.SubmitButton;
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private SearchableSpinner purposes;
     private SubmitButton makeItVegan;
     private final String TAG = MainActivity.class.getName();
+    private TextView logInAsAdministrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,13 @@ public class MainActivity extends AppCompatActivity {
 
         mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
+        logInAsAdministrator = findViewById(R.id.logInAsAdministrator);
+        logInAsAdministrator.setMovementMethod(LinkMovementMethod.getInstance());
+        logInAsAdministrator.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AdministratorLoginActivity.class);
+            startActivity(intent);
+        });
+
         products = findViewById(R.id.products);
         purposes = findViewById(R.id.purpose);
 
@@ -45,9 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
         final ArrayAdapter<NonVeganProduct> productsAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, new ArrayList<>());
         final ArrayAdapter<Purpose> purposesAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, new ArrayList<>());
-
-        products.setAdapter(productsAdapter);
-        purposes.setAdapter(purposesAdapter);
 
         mainActivityViewModel.getNonVeganProducts().observe(this, nonVeganProducts -> {
             productsAdapter.clear();
@@ -60,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
             purposesAdapter.addAll(purposes);
             purposesAdapter.notifyDataSetChanged();
         });
+
+        products.setAdapter(productsAdapter);
+        purposes.setAdapter(purposesAdapter);
 
         makeItVegan = findViewById(R.id.makeItVegan);
         makeItVegan.reset();

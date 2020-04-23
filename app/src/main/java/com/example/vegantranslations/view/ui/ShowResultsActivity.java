@@ -12,6 +12,8 @@ import android.view.Window;
 
 import com.example.vegantranslations.R;
 import com.example.vegantranslations.data.model.db.Alternative;
+import com.example.vegantranslations.data.model.db.NonVeganProduct;
+import com.example.vegantranslations.data.model.db.Purpose;
 import com.example.vegantranslations.view.adapters.ResultsAdapter;
 import com.example.vegantranslations.viewModel.ShowResultsViewModel;
 
@@ -27,10 +29,14 @@ public class ShowResultsActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
 
+        setTitle("Show Alternatives");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_results);
 
         showResultsViewModel = new ViewModelProvider(this).get(ShowResultsViewModel.class);
+
+        showResultsViewModel.passIntentParams((NonVeganProduct) getIntent().getSerializableExtra("product"), (Purpose) getIntent().getSerializableExtra("purpose"));
 
         recyclerView = findViewById(R.id.resultsRecyclerView);
         recyclerView.setHasFixedSize(true);
@@ -41,6 +47,11 @@ public class ShowResultsActivity extends AppCompatActivity {
             recyclerView.setAdapter(resultsAdapter);
         };
         showResultsViewModel.getAlternatives().observe(this, alternativesUpdateObserver);
+        resultsAdapter.setOnItemClickListener(alternative -> {
+            Intent intent = new Intent(ShowResultsActivity.this, WebViewRecipesSearchActivity.class);
+            intent.putExtra(getString(R.string.alternative), alternative);
+            startActivity(intent);
+        });
         recyclerView.setAdapter(resultsAdapter);
     }
 

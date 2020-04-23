@@ -8,20 +8,25 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.vegantranslations.data.local.AppDatabase;
 import com.example.vegantranslations.data.model.db.Alternative;
+import com.example.vegantranslations.data.model.db.NonVeganProduct;
+import com.example.vegantranslations.data.model.db.Purpose;
 import com.example.vegantranslations.data.network.RequestQueueSingleton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static com.example.vegantranslations.data.network.ApiConstants.API_URL;
 import static com.example.vegantranslations.data.network.ApiConstants.QUERY_STATIC_PARAMS;
 
 public class ShowResultsViewModel extends AndroidViewModel {
+    private AppDatabase appDatabase = AppDatabase.getAppDatabase(super.getApplication().getApplicationContext());
     private RequestQueueSingleton requestQueueSingleton;
     private RequestQueue requestQueue;
     private MutableLiveData<List<Alternative>> alternatives;
@@ -29,7 +34,6 @@ public class ShowResultsViewModel extends AndroidViewModel {
     public ShowResultsViewModel(@NonNull Application application) {
         super(application);
         alternatives = new MutableLiveData<>();
-        init();
         this.requestQueueSingleton = RequestQueueSingleton.getInstance(super.getApplication().getApplicationContext());
         requestQueue = requestQueueSingleton.getRequestQueue();
     }
@@ -40,26 +44,48 @@ public class ShowResultsViewModel extends AndroidViewModel {
 
     // call your Rest API in init method
     private void init() {
-//        alternatives.setValue();
+        List<Alternative> tmp = alternatives.getValue();
+        for (Alternative a : tmp) {
+            a.setImageUrl(getImage(a.getName()));
+        }
+        alternatives.setValue(tmp);
     }
 
-    private void getImage(String query) {
+    private String getImage(String query) {
+        AtomicReference<String> result = new AtomicReference<>();
         try {
             JSONObject object = new JSONObject();
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, API_URL + query + QUERY_STATIC_PARAMS, null, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, API_URL + query + QUERY_STATIC_PARAMS, null, response -> {
+                JSONArray images_results = null;
+                try {
+                    images_results = response.getJSONArray("images_results");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                JSONObject o = null;
+                try {
+                    o = images_results.getJSONObject(0);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    result.set(o.getString("thumbnail"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                }
+            }, error -> {
             });
             requestQueue.add(jsonObjectRequest);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return result.get();
+    }
+
+    public void passIntentParams(NonVeganProduct product, Purpose purpose) {
+        alternatives.setValue(appDatabase.alternativeDao().getAlternativesForProductByPurpose(product.getId(), purpose.getId()).getValue());
+        init();
     }
 }
 
