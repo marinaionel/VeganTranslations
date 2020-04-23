@@ -16,7 +16,7 @@ import java.util.List;
 
 @Dao
 public interface NonVeganProductDao {
-    @Query("select * from " + Collections.NON_VEGAN_PRODUCTS)
+    @Query("select * from non_vegan_products")
     LiveData<List<NonVeganProduct>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -25,15 +25,15 @@ public interface NonVeganProductDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertProductPurpose(ProductPurpose... productPurposes);
 
-    @Query("select purpose.id, purpose.name from " + Collections.PURPOSE + " left join " + Collections.PRODUCT_PURPOSE + " on id=" + Collections.PRODUCT_PURPOSE + ".purpose_id where id=:id")
+    @Query("select purpose.id, purpose.name from purpose left join product_purpose on purpose.id=product_purpose.purpose_id where id=:id")
     LiveData<List<Purpose>> getProductPurposes(String id);
 
-    @Query("select * from " + Collections.NON_VEGAN_PRODUCTS + " where id = :id")
+    @Query("select * from non_vegan_products where id = :id")
     LiveData<NonVeganProduct> getProductById(String id);
 
     @Delete
     void delete(NonVeganProduct nonVeganProduct);
 
-    @Query("DELETE FROM " + Collections.NON_VEGAN_PRODUCTS)
+    @Query("DELETE FROM non_vegan_products")
     void deleteAll();
 }

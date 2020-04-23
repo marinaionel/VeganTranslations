@@ -8,6 +8,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.vegantranslations.data.local.dao.AlternativeDao;
 import com.example.vegantranslations.data.local.dao.CategoryDao;
 import com.example.vegantranslations.data.local.dao.NonVeganProductDao;
 import com.example.vegantranslations.data.local.dao.PurposeDao;
@@ -27,6 +28,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract CategoryDao categoryDao();
 
     public abstract PurposeDao purposeDao();
+
+    public abstract AlternativeDao alternativeDao();
 
     public static AppDatabase getAppDatabase(Context context) {
         if (INSTANCE == null) {

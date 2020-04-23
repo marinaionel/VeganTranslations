@@ -7,10 +7,12 @@ import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "non_vegan_products")
-public class NonVeganProduct {
+public class NonVeganProduct implements Serializable {
     private String name;
     @PrimaryKey
     @NonNull

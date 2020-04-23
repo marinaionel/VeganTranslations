@@ -3,28 +3,23 @@ package com.example.vegantranslations.data.repository;
 import android.content.Context;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import com.example.vegantranslations.data.local.AppDatabase;
 import com.example.vegantranslations.data.model.db.Category;
 import com.example.vegantranslations.data.model.db.NonVeganProduct;
 import com.example.vegantranslations.data.model.db.ProductPurpose;
+import com.example.vegantranslations.data.model.db.ProductPurposeAlternative;
 import com.example.vegantranslations.data.model.db.Purpose;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import static com.example.vegantranslations.data.Collections.CATEGORY;
 import static com.example.vegantranslations.data.Collections.NON_VEGAN_PRODUCTS;
 import static com.example.vegantranslations.data.Collections.PRODUCT_PURPOSE_ALTERNATIVE;
 import static com.example.vegantranslations.data.Collections.PURPOSE;
+import static java.util.Objects.requireNonNull;
 
 public class DataLoader {
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -36,9 +31,11 @@ public class DataLoader {
         populateLocalDatabaseFromFirebase();
     }
 
-    public static synchronized DataLoader getInstance(Context context) {
+    public static DataLoader getInstance(Context context) {
         if (instance == null) {
-            instance = new DataLoader();
+            synchronized (DataLoader.class) {
+                instance = new DataLoader();
+            }
             appDatabase = AppDatabase.getAppDatabase(context);
         }
         return instance;
@@ -54,7 +51,7 @@ public class DataLoader {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
+                        for (QueryDocumentSnapshot document : requireNonNull(task.getResult())) {
                             Log.d(TAG, document.getId() + " => " + document.getData());
                             String id = document.getId();
                             Category tmp = new Category(id, (String) document.get("name"));
@@ -70,12 +67,12 @@ public class DataLoader {
     private void loadProducts() {
         firestore.collection(NON_VEGAN_PRODUCTS).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
+                for (QueryDocumentSnapshot document : requireNonNull(task.getResult())) {
                     Log.d(TAG, document.getId() + " => " + document.getData());
                     String id = document.getId();
                     NonVeganProduct tmp = new NonVeganProduct((String) document.get("name"), document.getId(), ((DocumentReference) document.get("category_id")).getId());
-                    ArrayList<DocumentReference> purposeReferences = (ArrayList<DocumentReference>) document.get("purposes");
-                    for (DocumentReference i : purposeReferences) {
+                    List<DocumentReference> purposeReferences = (List<DocumentReference>) document.get("purposes");
+                    for (DocumentReference i : requireNonNull(purposeReferences)) {
                         ProductPurpose productPurpose = new ProductPurpose();
                         productPurpose.setProductId(tmp.getId());
                         productPurpose.setPurposeId(i.getId());
@@ -93,7 +90,7 @@ public class DataLoader {
     private void loadPurposes() {
         firestore.collection(PURPOSE).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
+                for (QueryDocumentSnapshot document : requireNonNull(task.getResult())) {
                     Log.d(TAG, document.getId() + " => " + document.getData());
                     String id = document.getId();
                     Purpose tmp = new Purpose(id, (String) document.get("name"));
@@ -108,11 +105,15 @@ public class DataLoader {
     private void loadProductPurposeAlternative() {
         firestore.collection(PRODUCT_PURPOSE_ALTERNATIVE).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
+                for (QueryDocumentSnapshot document : requireNonNull(task.getResult())) {
                     Log.d(TAG, document.getId() + " => " + document.getData());
                     String id = document.getId();
-                    Purpose tmp = new Purpose(id, (String) document.get("name"));
-                    appDatabase.purposeDao().insertAll(tmp);
+                    ProductPurposeAlternative tmp = new ProductPurposeAlternative();
+                    tmp.setId(id);
+                    tmp.setAlternative(((DocumentReference) document.get("alternative")).getId());
+                    tmp.setProductId(((DocumentReference) document.get("product")).getId());
+                    tmp.setPurposeId(((DocumentReference) document.get("purpose")).getId());
+                    appDatabase.alternativeDao().insertProductPurposeAlternative(tmp);
                 }
             } else {
                 Log.d(TAG, "Error getting documents: ", task.getException());
