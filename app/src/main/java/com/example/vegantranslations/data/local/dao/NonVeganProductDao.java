@@ -1,5 +1,6 @@
 package com.example.vegantranslations.data.local.dao;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -20,10 +21,10 @@ public interface NonVeganProductDao {
     LiveData<List<NonVeganProduct>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(NonVeganProduct... nonVeganProducts);
+    void insertAll(@NonNull NonVeganProduct... nonVeganProducts);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertProductPurpose(ProductPurpose... productPurposes);
+    void insertProductPurpose(@NonNull ProductPurpose... productPurposes);
 
     @Query("select purpose.id, purpose.name from purpose left join product_purpose on purpose.id=product_purpose.purpose_id where id=:id")
     LiveData<List<Purpose>> getProductPurposes(String id);

@@ -1,4 +1,4 @@
-package com.example.vegantranslations.view.ui.ui.login;
+package com.example.vegantranslations.view.ui.login;
 
 import androidx.annotation.Nullable;
 

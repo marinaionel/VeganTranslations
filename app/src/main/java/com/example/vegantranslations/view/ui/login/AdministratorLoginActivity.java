@@ -1,4 +1,4 @@
-package com.example.vegantranslations.view.ui.ui.login;
+package com.example.vegantranslations.view.ui.login;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -20,9 +20,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.vegantranslations.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class AdministratorLoginActivity extends AppCompatActivity {
-
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private LoginViewModel loginViewModel;
 
     @Override

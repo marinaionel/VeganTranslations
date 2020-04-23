@@ -19,7 +19,7 @@ import com.example.vegantranslations.data.model.db.ProductPurpose;
 import com.example.vegantranslations.data.model.db.ProductPurposeAlternative;
 import com.example.vegantranslations.data.model.db.Purpose;
 
-@Database(entities = {NonVeganProduct.class, Category.class, Purpose.class, Alternative.class, ProductPurpose.class, ProductPurposeAlternative.class}, version = 3, exportSchema = false)
+@Database(entities = {NonVeganProduct.class, Category.class, Purpose.class, Alternative.class, ProductPurpose.class, ProductPurposeAlternative.class}, version = 4, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
 

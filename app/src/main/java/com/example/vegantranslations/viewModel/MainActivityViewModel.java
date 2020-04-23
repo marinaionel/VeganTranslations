@@ -17,16 +17,16 @@ import java.util.List;
 public class MainActivityViewModel extends AndroidViewModel {
     private AppDatabase appDatabase = AppDatabase.getAppDatabase(super.getApplication().getApplicationContext());
     LiveData<List<NonVeganProduct>> nonVeganProducts;
-    MutableLiveData<List<Purpose>> purposes = new MutableLiveData<>();
+    LiveData<List<Purpose>> purposes;
 
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
         nonVeganProducts = appDatabase.nonVeganProductDao().getAll();
-        purposes.setValue(appDatabase.purposeDao().getAll().getValue());
+        purposes = appDatabase.purposeDao().getAll();
         DataLoader.getInstance(super.getApplication().getApplicationContext());
     }
 
-    public MutableLiveData<List<Purpose>> getPurposes() {
+    public LiveData<List<Purpose>> getPurposes() {
         return purposes;
     }
 
@@ -36,8 +36,8 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     public void selectedProduct(NonVeganProduct item) {
         if (item != null)
-            purposes.setValue(appDatabase.nonVeganProductDao().getProductPurposes(item.getId()).getValue());
+            purposes = appDatabase.nonVeganProductDao().getProductPurposes(item.getId());
         else
-            purposes.setValue(appDatabase.purposeDao().getAll().getValue());
+            purposes = appDatabase.purposeDao().getAll();
     }
 }

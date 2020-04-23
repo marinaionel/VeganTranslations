@@ -12,6 +12,7 @@ public class Purpose implements Serializable {
     @PrimaryKey
     @NonNull
     private String id;
+    @NonNull
     private String name;
 
     @NonNull
@@ -23,11 +24,12 @@ public class Purpose implements Serializable {
         this.id = id;
     }
 
+    @NonNull
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(@NonNull String name) {
         this.name = name;
     }
 

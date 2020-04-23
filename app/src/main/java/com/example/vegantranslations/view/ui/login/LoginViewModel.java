@@ -1,9 +1,12 @@
-package com.example.vegantranslations.view.ui.ui.login;
+package com.example.vegantranslations.view.ui.login;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import android.app.Application;
 import android.util.Patterns;
 
 import com.example.vegantranslations.R;
@@ -11,15 +14,16 @@ import com.example.vegantranslations.view.ui.data.LoginRepository;
 import com.example.vegantranslations.view.ui.data.Result;
 import com.example.vegantranslations.view.ui.data.model.LoggedInUser;
 
-public class LoginViewModel extends ViewModel {
+public class LoginViewModel extends AndroidViewModel {
 
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
     private LoginRepository loginRepository;
 
-    LoginViewModel(LoginRepository loginRepository) {
-        this.loginRepository = loginRepository;
+    public LoginViewModel(@NonNull Application application) {
+        super(application);
     }
+
 
     LiveData<LoginFormState> getLoginFormState() {
         return loginFormState;
@@ -66,5 +70,9 @@ public class LoginViewModel extends ViewModel {
     // A placeholder password validation check
     private boolean isPasswordValid(String password) {
         return password != null && password.trim().length() > 5;
+    }
+
+    public void setLoginRepository(LoginRepository loginRepository) {
+        this.loginRepository = loginRepository;
     }
 }

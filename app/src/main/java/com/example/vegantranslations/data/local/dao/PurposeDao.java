@@ -1,5 +1,6 @@
 package com.example.vegantranslations.data.local.dao;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -18,7 +19,7 @@ public interface PurposeDao {
     LiveData<List<Purpose>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(Purpose... purposes);
+    void insertAll(@NonNull Purpose... purposes);
 
     @Delete
     void delete(Purpose nonVeganProduct);

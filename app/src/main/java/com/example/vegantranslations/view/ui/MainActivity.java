@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.vegantranslations.R;
 import com.example.vegantranslations.data.model.db.NonVeganProduct;
 import com.example.vegantranslations.data.model.db.Purpose;
-import com.example.vegantranslations.view.ui.ui.login.AdministratorLoginActivity;
+import com.example.vegantranslations.view.ui.login.AdministratorLoginActivity;
 import com.example.vegantranslations.viewModel.MainActivityViewModel;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 import com.unstoppable.submitbuttonview.SubmitButton;
@@ -69,9 +69,6 @@ public class MainActivity extends AppCompatActivity {
             purposesAdapter.notifyDataSetChanged();
         });
 
-        products.setAdapter(productsAdapter);
-        purposes.setAdapter(purposesAdapter);
-
         makeItVegan = findViewById(R.id.makeItVegan);
         makeItVegan.reset();
 //        Log.d(TAG, String.valueOf(makeItVegan.getAnimation()));
@@ -94,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
                 mainActivityViewModel.selectedProduct(null);
             }
         });
+
+        products.setAdapter(productsAdapter);
+        purposes.setAdapter(purposesAdapter);
     }
 
     @Override

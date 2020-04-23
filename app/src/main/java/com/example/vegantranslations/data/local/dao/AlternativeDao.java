@@ -1,5 +1,6 @@
 package com.example.vegantranslations.data.local.dao;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -21,7 +22,7 @@ public interface AlternativeDao {
     LiveData<List<Alternative>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(Alternative... alternatives);
+    void insertAll(@NonNull Alternative... alternatives);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertProductPurposeAlternative(ProductPurposeAlternative... productPurposeAlternatives);

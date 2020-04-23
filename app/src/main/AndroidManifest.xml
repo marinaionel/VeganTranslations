@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.login.AdministratorLoginActivity"
+            android:name=".view.ui.login.AdministratorLoginActivity"
             android:label="@string/title_activity_administrator_login"></activity>
         <activity android:name=".view.ui.WebViewRecipesSearchActivity" />
         <activity android:name=".view.ui.MainActivity">

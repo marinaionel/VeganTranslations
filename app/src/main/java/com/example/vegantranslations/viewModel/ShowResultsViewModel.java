@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static com.example.vegantranslations.data.network.ApiConstants.API_URL;
@@ -29,11 +30,10 @@ public class ShowResultsViewModel extends AndroidViewModel {
     private AppDatabase appDatabase = AppDatabase.getAppDatabase(super.getApplication().getApplicationContext());
     private RequestQueueSingleton requestQueueSingleton;
     private RequestQueue requestQueue;
-    private MutableLiveData<List<Alternative>> alternatives;
+    private MutableLiveData<List<Alternative>> alternatives = new MutableLiveData<>();
 
     public ShowResultsViewModel(@NonNull Application application) {
         super(application);
-        alternatives = new MutableLiveData<>();
         this.requestQueueSingleton = RequestQueueSingleton.getInstance(super.getApplication().getApplicationContext());
         requestQueue = requestQueueSingleton.getRequestQueue();
     }
@@ -45,7 +45,7 @@ public class ShowResultsViewModel extends AndroidViewModel {
     // call your Rest API in init method
     private void init() {
         List<Alternative> tmp = alternatives.getValue();
-        for (Alternative a : tmp) {
+        for (Alternative a : Objects.requireNonNull(tmp)) {
             a.setImageUrl(getImage(a.getName()));
         }
         alternatives.setValue(tmp);
@@ -54,7 +54,6 @@ public class ShowResultsViewModel extends AndroidViewModel {
     private String getImage(String query) {
         AtomicReference<String> result = new AtomicReference<>();
         try {
-            JSONObject object = new JSONObject();
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, API_URL + query + QUERY_STATIC_PARAMS, null, response -> {
                 JSONArray images_results = null;
                 try {

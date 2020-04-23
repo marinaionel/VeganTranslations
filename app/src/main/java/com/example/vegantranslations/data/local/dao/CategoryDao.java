@@ -1,5 +1,6 @@
 package com.example.vegantranslations.data.local.dao;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -18,7 +19,7 @@ public interface CategoryDao {
     LiveData<List<Category>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(Category... categories);
+    void insertAll(@NonNull Category... categories);
 
     @Delete
     void delete(Category category);

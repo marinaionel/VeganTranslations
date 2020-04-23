@@ -1,4 +1,4 @@
-package com.example.vegantranslations.view.ui.ui.login;
+package com.example.vegantranslations.view.ui.login;
 
 /**
  * Class exposing authenticated user details to the UI.
