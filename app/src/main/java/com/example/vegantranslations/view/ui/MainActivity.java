@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         products.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mainActivityViewModel.selectedProduct((NonVeganProduct) products.getSelectedItem());
+                mainActivityViewModel.setSelectedProduct((NonVeganProduct) products.getSelectedItem());
             }
 
             @Override
