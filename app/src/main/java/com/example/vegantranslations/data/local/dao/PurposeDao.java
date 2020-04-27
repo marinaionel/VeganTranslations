@@ -21,6 +21,9 @@ public interface PurposeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(@NonNull Purpose... purposes);
 
+    @Query("select purpose.* from " + Collections.PURPOSE + " left join product_purpose on purpose.id=product_purpose.purpose_id where product_id=:productId")
+    LiveData<List<Purpose>> getPurposesForProduct(String productId);
+
     @Delete
     void delete(Purpose nonVeganProduct);
 

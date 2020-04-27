@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -18,7 +19,7 @@ import com.example.vegantranslations.data.model.db.Alternative;
 import java.util.List;
 import java.util.Objects;
 
-public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHolder> {
+public class ResultsAdapter extends Adapter<ResultsAdapter.ViewHolder> {
     private List<Alternative> alternatives;
     private Context context;
     private OnItemClickListener onItemClickListener;

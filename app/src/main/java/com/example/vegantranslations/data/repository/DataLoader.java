@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.vegantranslations.data.local.AppDatabase;
+import com.example.vegantranslations.data.model.db.Alternative;
 import com.example.vegantranslations.data.model.db.Category;
 import com.example.vegantranslations.data.model.db.NonVeganProduct;
 import com.example.vegantranslations.data.model.db.ProductPurpose;
@@ -15,6 +16,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.List;
 
+import static com.example.vegantranslations.data.Collections.ALTERNATIVES;
 import static com.example.vegantranslations.data.Collections.CATEGORY;
 import static com.example.vegantranslations.data.Collections.NON_VEGAN_PRODUCTS;
 import static com.example.vegantranslations.data.Collections.PRODUCT_PURPOSE_ALTERNATIVE;
@@ -44,6 +46,7 @@ public class DataLoader {
     private void populateLocalDatabaseFromFirebase() {
         loadCategories();
         loadPurposes();
+        loadAlternatives();
     }
 
     private void loadCategories() {
@@ -95,6 +98,21 @@ public class DataLoader {
                     String id = document.getId();
                     Purpose tmp = new Purpose(id, (String) document.get("name"));
                     appDatabase.purposeDao().insertAll(tmp);
+                }
+            } else {
+                Log.d(TAG, "Error getting documents: ", task.getException());
+            }
+        });
+    }
+
+    private void loadAlternatives() {
+        firestore.collection(ALTERNATIVES).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : requireNonNull(task.getResult())) {
+                    Log.d(TAG, document.getId() + " => " + document.getData());
+                    String id = document.getId();
+                    Alternative tmp = new Alternative(id, (String) document.get("name"), (String) document.get("description"));
+                    appDatabase.alternativeDao().insertAll(tmp);
                 }
             } else {
                 Log.d(TAG, "Error getting documents: ", task.getException());
