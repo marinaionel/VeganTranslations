@@ -18,6 +18,7 @@ import com.example.vegantranslations.view.adapters.ResultsAdapter;
 import com.example.vegantranslations.viewModel.ShowResultsViewModel;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ShowResultsActivity extends AppCompatActivity {
     private ShowResultsViewModel showResultsViewModel;
@@ -27,32 +28,21 @@ public class ShowResultsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         setTitle("Show Alternatives");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_results);
 
-        showResultsViewModel = new ViewModelProvider(this).get(ShowResultsViewModel.class);
-
-        showResultsViewModel.passIntentParams((NonVeganProduct) getIntent().getSerializableExtra("product"), (Purpose) getIntent().getSerializableExtra("purpose"));
-
         recyclerView = findViewById(R.id.resultsRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Observer<? super List<Alternative>> alternativesUpdateObserver = (Observer<List<Alternative>>) alternatives -> {
-            resultsAdapter = new ResultsAdapter(alternatives, getApplicationContext());
-            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            recyclerView.setAdapter(resultsAdapter);
-        };
-        showResultsViewModel.getAlternatives().observe(this, alternativesUpdateObserver);
-        resultsAdapter.setOnItemClickListener(alternative -> {
-            Intent intent = new Intent(ShowResultsActivity.this, WebViewRecipesSearchActivity.class);
-            intent.putExtra(getString(R.string.alternative), alternative);
-            startActivity(intent);
-        });
-        recyclerView.setAdapter(resultsAdapter);
+
+        showResultsViewModel = new ViewModelProvider(this).get(ShowResultsViewModel.class);
+
+        showResultsViewModel.passIntentParams((NonVeganProduct) Objects.requireNonNull(getIntent().getSerializableExtra("product")), (Purpose) Objects.requireNonNull(getIntent().getSerializableExtra("purpose")));
+        showResultsViewModel.getAlternatives().observe(this, this::onChanged);
     }
 
     @Override
@@ -60,5 +50,20 @@ public class ShowResultsActivity extends AppCompatActivity {
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    private void onChanged(List<Alternative> alternatives) {
+
+
+        resultsAdapter = new ResultsAdapter(alternatives, getApplicationContext());
+        resultsAdapter.setOnItemClickListener(this::onItemClick);
+        recyclerView.setAdapter(resultsAdapter);
+        resultsAdapter.notifyDataSetChanged();
+    }
+
+    private void onItemClick(Alternative alternative) {
+        Intent intent = new Intent(ShowResultsActivity.this, WebViewRecipesSearchActivity.class);
+        intent.putExtra(getString(R.string.alternative), alternative);
+        startActivity(intent);
     }
 }

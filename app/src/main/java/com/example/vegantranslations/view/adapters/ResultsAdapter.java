@@ -1,6 +1,8 @@
 package com.example.vegantranslations.view.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,11 +10,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.vegantranslations.R;
 import com.example.vegantranslations.data.model.db.Alternative;
 
@@ -23,6 +29,7 @@ public class ResultsAdapter extends Adapter<ResultsAdapter.ViewHolder> {
     private List<Alternative> alternatives;
     private Context context;
     private OnItemClickListener onItemClickListener;
+    private final String TAG = ResultsAdapter.class.getName();
 
     public ResultsAdapter(List<Alternative> alternatives, Context context) {
         this.alternatives = alternatives;
@@ -41,10 +48,14 @@ public class ResultsAdapter extends Adapter<ResultsAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.title.setText(alternatives.get(position).getName());
         holder.description.setText(alternatives.get(position).getDescription());
-
         Glide.with(this.context)
                 .load(alternatives.get(position).getImageUrl())
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .fitCenter()
+                .apply(RequestOptions.centerCropTransform())
+                .apply(RequestOptions.centerCropTransform())
                 .into(holder.getImage());
     }
 
@@ -57,6 +68,7 @@ public class ResultsAdapter extends Adapter<ResultsAdapter.ViewHolder> {
         TextView title;
         TextView description;
         ImageView imageView;
+        private final String TAG = ViewHolder.class.getName();
 
         public ImageView getImage() {
             return this.imageView;
@@ -67,6 +79,7 @@ public class ResultsAdapter extends Adapter<ResultsAdapter.ViewHolder> {
             title = itemView.findViewById(R.id.rowTextTitle);
             description = itemView.findViewById(R.id.rowTextDescription);
             imageView = itemView.findViewById(R.id.rowImage);
+
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 if (Objects.nonNull(onItemClickListener) && position != RecyclerView.NO_POSITION)

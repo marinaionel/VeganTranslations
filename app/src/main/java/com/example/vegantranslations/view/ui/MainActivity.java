@@ -21,6 +21,7 @@ import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 import com.unstoppable.submitbuttonview.SubmitButton;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private MainActivityViewModel mainActivityViewModel;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -47,9 +48,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        if (!mainActivityViewModel.isLoggedIn()) {
-            logInAsAdministrator.setVisibility(View.GONE);
-        }
+        if (mainActivityViewModel.isLoggedOut()) logInAsAdministrator.setVisibility(View.VISIBLE);
+        else logInAsAdministrator.setVisibility(View.GONE);
 
         products = findViewById(R.id.products);
         purposes = findViewById(R.id.purpose);

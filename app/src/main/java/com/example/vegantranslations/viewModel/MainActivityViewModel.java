@@ -1,6 +1,7 @@
 package com.example.vegantranslations.viewModel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -22,6 +23,7 @@ public class MainActivityViewModel extends AndroidViewModel {
     private LiveData<List<NonVeganProduct>> nonVeganProducts;
     private LiveData<List<Purpose>> purposes;
     private MutableLiveData<String> productId;
+    private final String TAG = MainActivityViewModel.class.getName();
 
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
@@ -44,7 +46,8 @@ public class MainActivityViewModel extends AndroidViewModel {
         productId.setValue(item.getId());
     }
 
-    public boolean isLoggedIn() {
-        return firebaseAuth.getCurrentUser() != null;
+    public boolean isLoggedOut() {
+        Log.d(TAG, String.valueOf(firebaseAuth.getCurrentUser()));
+        return firebaseAuth.getCurrentUser() == null;
     }
 }

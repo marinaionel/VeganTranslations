@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/container"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#e4e4e4">
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:padding="16dp"
+    tools:ignore="RtlHardcoded">
 
     <ImageView
         android:id="@+id/rowImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:contentDescription="@string/app_name"
+        tools:background="#ddd" />
 
     <TextView
         android:id="@+id/rowTextTitle"
-        style="@style/AlternativeName"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:text="@string/tofu" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/rowImage"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        tools:text="Sandra Adams" />
 
     <TextView
         android:id="@+id/rowTextDescription"
-        style="@style/AlternativeDescription"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:text="@string/tofu" />
-</LinearLayout>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rowTextTitle"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/rowImage"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at augue et dolor aliquet malesuada at ut neque." />
+</RelativeLayout>
