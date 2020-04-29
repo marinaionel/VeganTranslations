@@ -1,4 +1,4 @@
-package com.example.vegantranslations.data.local.dao;
+package com.example.vegantranslations.data.repository.local.dao;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -10,9 +10,7 @@ import androidx.room.Query;
 
 import com.example.vegantranslations.data.Collections;
 import com.example.vegantranslations.data.model.db.Alternative;
-import com.example.vegantranslations.data.model.db.NonVeganProduct;
 import com.example.vegantranslations.data.model.db.ProductPurposeAlternative;
-import com.example.vegantranslations.data.model.db.Purpose;
 
 import java.util.List;
 

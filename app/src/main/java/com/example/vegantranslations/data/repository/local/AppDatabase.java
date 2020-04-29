@@ -1,17 +1,15 @@
-package com.example.vegantranslations.data.local;
+package com.example.vegantranslations.data.repository.local;
 
 import android.content.Context;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.migration.Migration;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.vegantranslations.data.local.dao.AlternativeDao;
-import com.example.vegantranslations.data.local.dao.CategoryDao;
-import com.example.vegantranslations.data.local.dao.NonVeganProductDao;
-import com.example.vegantranslations.data.local.dao.PurposeDao;
+import com.example.vegantranslations.data.repository.local.dao.AlternativeDao;
+import com.example.vegantranslations.data.repository.local.dao.CategoryDao;
+import com.example.vegantranslations.data.repository.local.dao.NonVeganProductDao;
+import com.example.vegantranslations.data.repository.local.dao.PurposeDao;
 import com.example.vegantranslations.data.model.db.Alternative;
 import com.example.vegantranslations.data.model.db.Category;
 import com.example.vegantranslations.data.model.db.NonVeganProduct;

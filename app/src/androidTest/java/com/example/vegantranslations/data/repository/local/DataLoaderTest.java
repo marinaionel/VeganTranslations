@@ -1,4 +1,4 @@
-package com.example.vegantranslations.data.local;
+package com.example.vegantranslations.data.repository.local;
 
 class DataLoaderTest {
 

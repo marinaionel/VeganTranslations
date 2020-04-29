@@ -16,7 +16,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.vegantranslations.R;
 import com.example.vegantranslations.data.model.db.NonVeganProduct;
 import com.example.vegantranslations.data.model.db.Purpose;
-import com.example.vegantranslations.view.ui.login.AdministratorLoginActivity;
 import com.example.vegantranslations.viewModel.MainActivityViewModel;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 import com.unstoppable.submitbuttonview.SubmitButton;
@@ -47,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, AdministratorLoginActivity.class);
             startActivity(intent);
         });
+
+        if (!mainActivityViewModel.isLoggedIn()) {
+            logInAsAdministrator.setVisibility(View.GONE);
+        }
 
         products = findViewById(R.id.products);
         purposes = findViewById(R.id.purpose);

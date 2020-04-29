@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.vegantranslations.data.local.AppDatabase;
+import com.example.vegantranslations.data.repository.local.AppDatabase;
 import com.example.vegantranslations.data.model.db.Alternative;
 import com.example.vegantranslations.data.model.db.NonVeganProduct;
 import com.example.vegantranslations.data.model.db.Purpose;

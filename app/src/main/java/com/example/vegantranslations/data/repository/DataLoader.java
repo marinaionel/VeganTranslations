@@ -3,7 +3,7 @@ package com.example.vegantranslations.data.repository;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.vegantranslations.data.local.AppDatabase;
+import com.example.vegantranslations.data.repository.local.AppDatabase;
 import com.example.vegantranslations.data.model.db.Alternative;
 import com.example.vegantranslations.data.model.db.Category;
 import com.example.vegantranslations.data.model.db.NonVeganProduct;
