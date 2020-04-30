@@ -2,100 +2,46 @@ package com.example.vegantranslations.view.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.method.LinkMovementMethod;
-import android.view.View;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.vegantranslations.R;
-import com.example.vegantranslations.data.model.db.NonVeganProduct;
-import com.example.vegantranslations.data.model.db.Purpose;
-import com.example.vegantranslations.viewModel.MainActivityViewModel;
-import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
+import com.example.vegantranslations.viewModel.MainViewModel;
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.unstoppable.submitbuttonview.SubmitButton;
 
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.Collections;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private MainActivityViewModel mainActivityViewModel;
-    private SearchableSpinner products;
-    private SearchableSpinner purposes;
-    private SubmitButton makeItVegan;
-    private final String TAG = MainActivity.class.getName();
-    private TextView logInAsAdministrator;
+    private static final int RC_SIGN_IN = 0;
+    private MainViewModel mainViewModel;
+    private SubmitButton login, continueAsGuest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        Objects.requireNonNull(getSupportActionBar()).hide();
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        login = findViewById(R.id.login);
+        continueAsGuest = findViewById(R.id.continue_as_guest);
 
-        logInAsAdministrator = findViewById(R.id.logInAsAdministrator);
-        logInAsAdministrator.setMovementMethod(LinkMovementMethod.getInstance());
-        logInAsAdministrator.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, AdministratorLoginActivity.class);
-            startActivity(intent);
+        login.setOnClickListener(v -> {
+            List<AuthUI.IdpConfig> providers = Collections.singletonList(new AuthUI.IdpConfig.EmailBuilder().build());
+
+            startActivityForResult(
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setAvailableProviders(providers)
+                            .build(),
+                    RC_SIGN_IN);
         });
 
-        if (mainActivityViewModel.isLoggedOut()) logInAsAdministrator.setVisibility(View.VISIBLE);
-        else logInAsAdministrator.setVisibility(View.GONE);
-
-        products = findViewById(R.id.products);
-        purposes = findViewById(R.id.purpose);
-
-        products.setTitle("Non-vegan product");
-        purposes.setTitle("Purpose");
-
-        final ArrayAdapter<NonVeganProduct> productsAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, new ArrayList<>());
-        final ArrayAdapter<Purpose> purposesAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, new ArrayList<>());
-
-        mainActivityViewModel.getNonVeganProducts().observe(this, nonVeganProducts -> {
-            productsAdapter.clear();
-            productsAdapter.addAll(nonVeganProducts);
-            productsAdapter.notifyDataSetChanged();
-        });
-
-        mainActivityViewModel.getPurposes().observe(this, purposes -> {
-            purposesAdapter.clear();
-            purposesAdapter.addAll(purposes);
-            purposesAdapter.notifyDataSetChanged();
-        });
-
-        makeItVegan = findViewById(R.id.makeItVegan);
-        makeItVegan.reset();
-//        Log.d(TAG, String.valueOf(makeItVegan.getAnimation()));
-        makeItVegan.setOnClickListener(v -> {
-            Intent myIntent = new Intent(MainActivity.this, ShowResultsActivity.class);
-            myIntent.putExtra("product", (NonVeganProduct) products.getSelectedItem());
-            myIntent.putExtra("purpose", (Purpose) purposes.getSelectedItem());
-            MainActivity.this.startActivityForResult(myIntent, 1);
-            makeItVegan.doResult(true);
-        });
-
-        products.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mainActivityViewModel.setSelectedProduct((NonVeganProduct) products.getSelectedItem());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        products.setAdapter(productsAdapter);
-        purposes.setAdapter(purposesAdapter);
+        continueAsGuest.setOnClickListener(v -> startActivityForResult(new Intent(this, SearchAsGuestActivity.class), 1));
     }
 
     @Override
@@ -103,7 +49,24 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                makeItVegan.reset();
+                continueAsGuest.reset();
+            }
+        }
+
+        if (requestCode == RC_SIGN_IN) {
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+            if (resultCode == RESULT_OK) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                assert user != null;
+                Toast.makeText(getApplicationContext(), "Authentication is successful. Welcome administrator with email " + user.getEmail() + "!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, AdministratorViewActivity.class);
+                startActivity(intent);
+                finish();
+            } else if (resultCode == RESULT_CANCELED) {
+                login.reset();
+            } else {
+                Toast.makeText(getApplicationContext(), "Authentication failed", Toast.LENGTH_SHORT).show();
+                login.reset();
             }
         }
     }

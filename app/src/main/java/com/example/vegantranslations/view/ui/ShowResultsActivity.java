@@ -27,9 +27,6 @@ public class ShowResultsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        Objects.requireNonNull(getSupportActionBar()).hide();
-
         setTitle("Show Alternatives");
 
         super.onCreate(savedInstanceState);

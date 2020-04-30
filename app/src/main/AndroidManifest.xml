@@ -13,21 +13,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.ui.AdministratorLoginActivity"
-            android:label="@string/title_activity_administrator_login"></activity>
-        <activity android:name=".view.ui.WebViewRecipesSearchActivity" />
-        <activity android:name=".view.ui.MainActivity">
+            android:name=".view.ui.MainActivity"
+            android:label="@string/title_activity_welcome"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.ui.ShowResultsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
-        </activity>
+
+        <activity
+            android:name=".view.ui.AdministratorViewActivity"
+            android:label="@string/title_activity_admin_u_i"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.ui.WebViewRecipesSearchActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.ui.SearchAsGuestActivity"
+            android:label="@string/title_activity_search_as_guest"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.ui.ShowResultsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

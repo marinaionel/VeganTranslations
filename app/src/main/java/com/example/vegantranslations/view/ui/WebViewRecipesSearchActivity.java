@@ -9,7 +9,6 @@ import android.webkit.WebView;
 
 import com.example.vegantranslations.R;
 import com.example.vegantranslations.data.model.db.Alternative;
-import com.example.vegantranslations.viewModel.MainActivityViewModel;
 import com.example.vegantranslations.viewModel.WebViewRecipesSearchViewModel;
 
 public class WebViewRecipesSearchActivity extends AppCompatActivity {
@@ -19,9 +18,6 @@ public class WebViewRecipesSearchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getSupportActionBar().hide();
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view_recipes_search);
 

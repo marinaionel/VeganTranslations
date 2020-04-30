@@ -5,110 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
-    tools:context=".view.ui.MainActivity">
-
-    <ImageView
-        android:id="@+id/rectangleImage"
-        android:layout_width="375dp"
-        android:layout_height="277dp"
-        android:background="@drawable/rectangle"
-        android:contentDescription="@string/rectangle"
-        android:elevation="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/makeItVegan"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="123dp"
-        android:layout_height="88dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="@string/todo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_vegan_logo_white" />
+    tools:context=".view.ui.SearchAsGuestActivity">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="22dp"
-        android:elevation="11dp"
-        android:text="@string/choose_a_product"
-        android:textAllCaps="true"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/products"
-        app:layout_constraintEnd_toStartOf="@+id/rectangleImage"
-        app:layout_constraintStart_toEndOf="@+id/rectangleImage"
-        app:layout_constraintTop_toTopOf="@+id/rectangleImage" />
-
-    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-        android:id="@+id/products"
+        android:id="@+id/textView2"
         android:layout_width="341dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="60dp"
-        android:elevation="11dp"
-        app:layout_constraintEnd_toStartOf="@+id/rectangleImage"
-        app:layout_constraintStart_toEndOf="@+id/rectangleImage"
-        app:layout_constraintTop_toTopOf="@+id/rectangleImage" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:elevation="11dp"
-        android:text="@string/select_purpose"
+        android:layout_height="143dp"
+        android:layout_marginTop="56dp"
+        android:layout_weight="1"
+        android:ellipsize="none"
+        android:gravity="center"
+        android:maxLines="100"
+        android:scrollHorizontally="false"
+        android:text="@string/welcome_to_vegan_translations"
         android:textAllCaps="true"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/purpose"
-        app:layout_constraintEnd_toStartOf="@+id/rectangleImage"
-        app:layout_constraintStart_toEndOf="@+id/rectangleImage" />
-
-    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-        android:id="@+id/purpose"
-        android:layout_width="341dp"
-        android:layout_height="64dp"
-        android:layout_marginBottom="28dp"
-        android:elevation="11dp"
-        app:layout_constraintBottom_toBottomOf="@+id/rectangleImage"
-        app:layout_constraintEnd_toStartOf="@+id/rectangleImage"
-        app:layout_constraintStart_toEndOf="@+id/rectangleImage" />
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.unstoppable.submitbuttonview.SubmitButton
-        android:id="@+id/makeItVegan"
+        android:id="@+id/login"
         android:layout_width="228dp"
         android:layout_height="47dp"
-        android:layout_marginBottom="60dp"
-        android:elevation="10dp"
+        android:layout_marginTop="96dp"
         android:textColor="#ffffff"
         app:buttonColor="#ffffff"
-        app:buttonText="@string/make_it_vegan"
-        app:layout_constraintBottom_toTopOf="@+id/logInAsAdministrator"
+        app:buttonText="LOG IN"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <TextView
-        android:id="@+id/logInAsAdministrator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/logInAsAdministrator"
-        android:textAllCaps="true"
+    <com.unstoppable.submitbuttonview.SubmitButton
+        android:id="@+id/continue_as_guest"
+        android:layout_width="228dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="40dp"
         android:textColor="#ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:buttonColor="#ffffff"
+        app:buttonText="CONTINUE AS GUEST"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="products,textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,15 +17,15 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
-public class MainActivityViewModel extends AndroidViewModel {
+public class SearchAsGuestViewModel extends AndroidViewModel {
     private AppDatabase appDatabase;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private LiveData<List<NonVeganProduct>> nonVeganProducts;
     private LiveData<List<Purpose>> purposes;
     private MutableLiveData<String> productId;
-    private final String TAG = MainActivityViewModel.class.getName();
+    private final String TAG = SearchAsGuestViewModel.class.getName();
 
-    public MainActivityViewModel(@NonNull Application application) {
+    public SearchAsGuestViewModel(@NonNull Application application) {
         super(application);
         appDatabase = AppDatabase.getAppDatabase(super.getApplication().getApplicationContext());
         nonVeganProducts = appDatabase.nonVeganProductDao().getAll();
@@ -49,5 +49,9 @@ public class MainActivityViewModel extends AndroidViewModel {
     public boolean isLoggedOut() {
         Log.d(TAG, String.valueOf(firebaseAuth.getCurrentUser()));
         return firebaseAuth.getCurrentUser() == null;
+    }
+
+    public void signOut() {
+        firebaseAuth.signOut();
     }
 }
