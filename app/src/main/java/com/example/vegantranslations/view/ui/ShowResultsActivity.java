@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Window;
 
@@ -50,8 +51,6 @@ public class ShowResultsActivity extends AppCompatActivity {
     }
 
     private void onChanged(List<Alternative> alternatives) {
-
-
         resultsAdapter = new ResultsAdapter(alternatives, getApplicationContext());
         resultsAdapter.setOnItemClickListener(this::onItemClick);
         recyclerView.setAdapter(resultsAdapter);
@@ -59,8 +58,7 @@ public class ShowResultsActivity extends AppCompatActivity {
     }
 
     private void onItemClick(Alternative alternative) {
-        Intent intent = new Intent(ShowResultsActivity.this, WebViewRecipesSearchActivity.class);
-        intent.putExtra(getString(R.string.alternative), alternative);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=recipes+with+" + alternative.getName().replace("\\s+", "%20")));
         startActivity(intent);
     }
 }

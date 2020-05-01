@@ -3,23 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_search">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.vegantranslations.view.ui.fragments.HomeFragment"
-        android:label="@string/title_home"
+        android:id="@+id/navigation_search"
+        android:name="com.example.vegantranslations.view.ui.fragments.SearchAlternativesAsAdminFragment"
+        android:label="@string/search_vegan_alternatives"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.vegantranslations.view.ui.fragments.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:id="@+id/navigation_add_non_vegan_product"
+        android:name="com.example.vegantranslations.view.ui.fragments.AddNonVeganProductFragment"
+        android:label="@string/add_non_vegan_product"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.vegantranslations.view.ui.fragments.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:id="@+id/navigation_add_connection"
+        android:name="com.example.vegantranslations.view.ui.fragments.AddConnectionFragment"
+        android:label="@string/add_connection"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_add_vegan_alternative"
+        android:name="com.example.vegantranslations.view.ui.fragments.AddVeganAlternativeFragment"
+        android:label="@string/add_vegan_alternative"
+        tools:layout="@layout/fragment_add_vegan_alternative" />
 </navigation>

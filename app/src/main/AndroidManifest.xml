@@ -14,22 +14,17 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.ui.MainActivity"
-            android:label="@string/title_activity_welcome"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
             android:name=".view.ui.AdministratorViewActivity"
-            android:label="@string/title_activity_admin_u_i"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".view.ui.WebViewRecipesSearchActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_admin_u_i" />
         <activity
             android:name=".view.ui.SearchAsGuestActivity"
             android:label="@string/title_activity_search_as_guest"

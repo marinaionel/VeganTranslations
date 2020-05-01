@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.vegantranslations.R;
 import com.example.vegantranslations.viewModel.MainViewModel;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
         login = findViewById(R.id.login);
         continueAsGuest = findViewById(R.id.continue_as_guest);
+
+        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         login.setOnClickListener(v -> {
             List<AuthUI.IdpConfig> providers = Collections.singletonList(new AuthUI.IdpConfig.EmailBuilder().build());
