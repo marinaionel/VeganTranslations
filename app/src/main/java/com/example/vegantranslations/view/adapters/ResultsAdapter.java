@@ -1,8 +1,6 @@
 package com.example.vegantranslations.view.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +8,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.vegantranslations.R;
 import com.example.vegantranslations.data.model.db.Alternative;
+import com.example.vegantranslations.view.CircleTransform;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Objects;
@@ -48,14 +42,13 @@ public class ResultsAdapter extends Adapter<ResultsAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.title.setText(alternatives.get(position).getName());
         holder.description.setText(alternatives.get(position).getDescription());
-        Glide.with(this.context)
+        Picasso.get()
                 .load(alternatives.get(position).getImageUrl())
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .fitCenter()
-                .apply(RequestOptions.centerCropTransform())
-                .apply(RequestOptions.centerCropTransform())
+                .fit()
+                .transform(new CircleTransform())
+                .centerCrop()
                 .into(holder.getImage());
     }
 
