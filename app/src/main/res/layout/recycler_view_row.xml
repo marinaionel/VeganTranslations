@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/rowImage"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:contentDescription="@string/app_name"
         tools:background="#ddd" />
 

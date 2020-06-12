@@ -1,6 +1,7 @@
 package com.example.vegantranslations.view.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,23 +12,37 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
+import com.android.volley.Request;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.vegantranslations.R;
 import com.example.vegantranslations.data.model.db.Alternative;
+import com.example.vegantranslations.data.network.RequestQueueSingleton;
 import com.example.vegantranslations.view.CircleTransform;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
+
+import static com.example.vegantranslations.data.network.ApiConstants.API_URL;
+import static com.example.vegantranslations.data.network.ApiConstants.QUERY_STATIC_PARAMS;
 
 public class ResultsAdapter extends Adapter<ResultsAdapter.ViewHolder> {
     private List<Alternative> alternatives;
     private Context context;
     private OnItemClickListener onItemClickListener;
     private final String TAG = ResultsAdapter.class.getName();
+    private final RequestQueueSingleton requestQueue;
 
     public ResultsAdapter(List<Alternative> alternatives, Context context) {
         this.alternatives = alternatives;
         this.context = context;
+        requestQueue = RequestQueueSingleton.getInstance(this.context);
     }
 
     @NonNull
@@ -40,16 +55,49 @@ public class ResultsAdapter extends Adapter<ResultsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.title.setText(alternatives.get(position).getName());
-        holder.description.setText(alternatives.get(position).getDescription());
-        Picasso.get()
-                .load(alternatives.get(position).getImageUrl())
-                .placeholder(R.drawable.placeholder)
-                .error(R.drawable.placeholder)
-                .fit()
-                .transform(new CircleTransform())
-                .centerCrop()
-                .into(holder.getImage());
+        Alternative alternative = alternatives.get(position);
+        holder.title.setText(alternative.getName());
+        holder.description.setText(alternative.getDescription());
+        getImage(alternative.getName(), holder.getImage());
+    }
+
+    private void getImage(String query, ImageView image) {
+        query = query.replace("\\s+", "%20");
+        AtomicReference<String> result = new AtomicReference<>();
+        try {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, API_URL + query + QUERY_STATIC_PARAMS, null, response -> {
+                Log.d(TAG, response.toString());
+                try {
+                    String thumbnail = "https:" + response.getJSONObject("data").getJSONObject("result").getJSONArray("items").getJSONObject(0).getString("thumbnail");
+                    Picasso.get()
+                            .load(thumbnail)
+                            .placeholder(R.drawable.placeholder)
+                            .error(R.drawable.placeholder)
+                            .fit()
+                            .transform(new CircleTransform())
+                            .centerCrop()
+                            .into(image);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }, error -> {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                Log.e(TAG, "Site Info Error: " + error.getMessage());
+                result.set(null);
+            }) {
+                @Override
+                public Map<String, String> getHeaders() {
+                    HashMap<String, String> headers = new HashMap<>();
+//                  Simulate a browser client :)
+                    headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36");
+                    return headers;
+                }
+            };
+            requestQueue.addToRequestQueue(jsonObjectRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
