@@ -9,7 +9,7 @@
         android:id="@+id/navigation_search"
         android:name="com.example.vegantranslations.view.ui.fragments.SearchAlternativesAsAdminFragment"
         android:label="@string/search_vegan_alternatives"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_search_alternatives" />
 
     <fragment
         android:id="@+id/navigation_add_non_vegan_product"

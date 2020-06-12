@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vegantranslations.R;
 import com.example.vegantranslations.viewModel.fragments.SearchAlternativesAsAdminViewModel;
@@ -16,12 +18,14 @@ import com.example.vegantranslations.viewModel.fragments.SearchAlternativesAsAdm
 public class SearchAlternativesAsAdminFragment extends Fragment {
 
     private SearchAlternativesAsAdminViewModel searchAlternativesAsAdminViewModel;
+    private RecyclerView recyclerViewAlternatives;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_search_alternatives, container, false);
         searchAlternativesAsAdminViewModel = new ViewModelProvider(this).get(SearchAlternativesAsAdminViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        searchAlternativesAsAdminViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        recyclerViewAlternatives = root.findViewById(R.id.recycler_view_alternatives);
+        recyclerViewAlternatives.setHasFixedSize(true);
+        recyclerViewAlternatives.setLayoutManager(new LinearLayoutManager(root.getContext()));
         return root;
     }
 }
