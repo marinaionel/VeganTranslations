@@ -37,12 +37,10 @@ public class AlternativesAdapter extends Adapter<AlternativesAdapter.ViewHolder>
     private Context context;
     private OnItemClickListener onItemClickListener;
     private final String TAG = AlternativesAdapter.class.getName();
-    private final RequestQueueSingleton requestQueue;
 
     public AlternativesAdapter(List<Alternative> alternatives, Context context) {
         this.alternatives = alternatives;
         this.context = context;
-        requestQueue = RequestQueueSingleton.getInstance(this.context);
     }
 
     @NonNull
@@ -58,46 +56,14 @@ public class AlternativesAdapter extends Adapter<AlternativesAdapter.ViewHolder>
         Alternative alternative = alternatives.get(position);
         holder.title.setText(alternative.getName());
         holder.description.setText(alternative.getDescription());
-        getImage(alternative.getName(), holder.getImage());
-    }
-
-    private void getImage(String query, ImageView image) {
-        query = query.replace("\\s+", "%20");
-        AtomicReference<String> result = new AtomicReference<>();
-        try {
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, API_URL + query + QUERY_STATIC_PARAMS, null, response -> {
-                Log.d(TAG, response.toString());
-                try {
-                    String thumbnail = "https:" + response.getJSONObject("data").getJSONObject("result").getJSONArray("items").getJSONObject(0).getString("thumbnail");
-                    Picasso.get()
-                            .load(thumbnail)
-                            .placeholder(R.drawable.placeholder)
-                            .error(R.drawable.placeholder)
-                            .fit()
-                            .transform(new CircleTransform())
-                            .centerCrop()
-                            .into(image);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }, error -> {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Log.e(TAG, "Site Info Error: " + error.getMessage());
-                result.set(null);
-            }) {
-                @Override
-                public Map<String, String> getHeaders() {
-                    HashMap<String, String> headers = new HashMap<>();
-//                  Simulate a browser client :)
-                    headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36");
-                    return headers;
-                }
-            };
-            requestQueue.addToRequestQueue(jsonObjectRequest);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Picasso.get()
+                .load(alternative.getImageUrl())
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .fit()
+                .transform(new CircleTransform())
+                .centerCrop()
+                .into(holder.getImage());
     }
 
     @Override

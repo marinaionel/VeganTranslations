@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.vegantranslations.R;
+import com.example.vegantranslations.data.FirestoreRepository;
 import com.example.vegantranslations.viewModel.MainViewModel;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -27,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //to populate the local database
+        new FirestoreRepository(getApplicationContext());
 
         login = findViewById(R.id.login);
         continueAsGuest = findViewById(R.id.continue_as_guest);

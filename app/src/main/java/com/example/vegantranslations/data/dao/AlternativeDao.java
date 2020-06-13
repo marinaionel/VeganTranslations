@@ -25,7 +25,11 @@ public interface AlternativeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertProductPurposeAlternative(ProductPurposeAlternative... productPurposeAlternatives);
 
-    @Query("select alternatives.id, alternatives.name, alternatives.description from alternatives left join product_purpose_alternative on alternatives.id=product_purpose_alternative.alternative_id where product_id=:productId and purpose_id=:purposeId")
+    @Query("select alternatives.id, alternatives.name, alternatives.description, alternatives.ImageUrl " +
+            "from alternatives " +
+            "left join product_purpose_alternative " +
+            "on alternatives.id=product_purpose_alternative.alternative_id " +
+            "where product_id=:productId and purpose_id=:purposeId")
     LiveData<List<Alternative>> getAlternativesForProductByPurpose(String productId, String purposeId);
 
     @Delete

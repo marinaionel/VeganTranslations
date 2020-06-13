@@ -36,6 +36,6 @@
     <string name="error_add_alternative_3">Please write a description for the product!</string>
     <string name="error_add_alternative_4">Description should be at least 10 character long!</string>
     <string name="error_add_alternative_5">Name should not be longer than 50 characters!</string>
-    <string name="error_add_alternative_6">Description should not be longer than 150 characters!</string>
+    <string name="error_add_alternative_6">Description should not be longer than 300 characters!</string>
     <string name="add_alternative_success">Added the alternative successfully!</string>
 </resources>

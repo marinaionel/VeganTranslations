@@ -17,6 +17,7 @@ public class Alternative implements Serializable {
     private String name;
     @NonNull
     private String description;
+    private String ImageUrl;
 
     @Ignore
     public Alternative(@NonNull String id, @NonNull String name, @NonNull String description) {
@@ -56,5 +57,13 @@ public class Alternative implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImageUrl() {
+        return ImageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        ImageUrl = imageUrl;
     }
 }

@@ -37,7 +37,10 @@ public class AddAlternative extends AppCompatActivity {
             }
             Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
             toast.show();
+            submitButton.reset();
+            if (text.equals(getString(R.string.add_alternative_success))) {
+                finish();
+            }
         });
-
     }
 }

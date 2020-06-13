@@ -39,7 +39,7 @@ public class AddAlternativeViewModel extends AndroidViewModel {
             info.setValue(super.getApplication().getString(R.string.error_add_alternative_4));
             return;
         }
-        if (description.length() > 150) {
+        if (description.length() > 300) {
             info.setValue(super.getApplication().getString(R.string.error_add_alternative_6));
             return;
         }

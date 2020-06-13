@@ -12,7 +12,6 @@ import androidx.lifecycle.Transformations;
 import com.example.vegantranslations.data.AppDatabase;
 import com.example.vegantranslations.data.model.db.NonVeganProduct;
 import com.example.vegantranslations.data.model.db.Purpose;
-import com.example.vegantranslations.data.DataLoader;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
@@ -31,7 +30,6 @@ public class SearchAsGuestViewModel extends AndroidViewModel {
         nonVeganProducts = appDatabase.nonVeganProductDao().getAll();
         productId = new MutableLiveData<>();
         purposes = Transformations.switchMap(productId, id -> appDatabase.purposeDao().getPurposesForProduct(id));
-        DataLoader.getInstance(super.getApplication().getApplicationContext());
     }
 
     public LiveData<List<Purpose>> getPurposes() {

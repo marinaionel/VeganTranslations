@@ -1,6 +1,8 @@
 package com.example.vegantranslations.view.ui.fragments;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,9 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -42,27 +47,25 @@ public class SearchAlternativesAsAdminFragment extends Fragment {
 
         searchAlternativesAsAdminViewModel.getAlternatives().observe(getViewLifecycleOwner(), this::onChanged);
 
-        TextView searchAlternatives = root.findViewById(R.id.search_alternatives);
-        searchAlternatives.setText("");
-        searchAlternatives.addTextChangedListener(new TextWatcher() {
+        SearchView searchAlternatives = root.findViewById(R.id.search_alternatives);
+        searchAlternatives.setSubmitButtonEnabled(false);
+        searchAlternatives.setIconified(true);
+        searchAlternatives.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                searchAlternativesAsAdminViewModel.filter(null);
+            public boolean onQueryTextSubmit(String s) {
+                searchAlternativesAsAdminViewModel.filter(s);
+                return true;
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                Log.d(TAG, "1");
-                searchAlternativesAsAdminViewModel.filter(s.toString());
+            public boolean onQueryTextChange(String s) {
+                searchAlternativesAsAdminViewModel.filter(s);
+                return true;
             }
         });
 
         FloatingActionButton fabAddAlternative = root.findViewById(R.id.fab_add_alternative);
+//        fabAddAlternative.setBackgroundDrawable(ContextCompat.getDrawable(root.getContext(), R.drawable.gradient));
         fabAddAlternative.setOnClickListener(v -> {
             Intent intent = new Intent(root.getContext(), AddAlternative.class);
             startActivity(intent);
@@ -71,10 +74,14 @@ public class SearchAlternativesAsAdminFragment extends Fragment {
     }
 
     private void onChanged(List<Alternative> alternatives) {
-        Log.d(TAG, "onchanged");
-        alternativesAdapter = new AlternativesAdapter(alternatives, super.getContext());
-//        alternativesAdapter.setOnItemClickListener(this::onItemClick);
+        alternativesAdapter = new AlternativesAdapter(alternatives, this.getActivity().getApplicationContext());
+        alternativesAdapter.setOnItemClickListener(this::onItemClick);
         recyclerViewAlternatives.setAdapter(alternativesAdapter);
         alternativesAdapter.notifyDataSetChanged();
+    }
+
+    private void onItemClick(Alternative alternative) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=recipes+with+" + alternative.getName().replace("\\s+", "%20")));
+        startActivity(intent);
     }
 }
