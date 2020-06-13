@@ -29,9 +29,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //to populate the local database
-        new FirestoreRepository(getApplicationContext());
-
         login = findViewById(R.id.login);
         continueAsGuest = findViewById(R.id.continue_as_guest);
 

@@ -27,7 +27,7 @@ public class AdministratorViewActivity extends AppCompatActivity {
                         .findFragmentById(R.id.nav_host_fragment);
         NavController navController = Objects.requireNonNull(navHostFragment).getNavController();
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_search, R.id.navigation_add_non_vegan_product, R.id.navigation_add_connection, R.id.navigation_add_vegan_alternative)
+                R.id.navigation_search, R.id.navigation_add_non_vegan_product, R.id.navigation_add_connection)
                 .build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);

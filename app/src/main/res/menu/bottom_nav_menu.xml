@@ -15,9 +15,4 @@
         android:id="@+id/navigation_add_connection"
         android:icon="@drawable/ic_network_black"
         android:title="@string/add_connection" />
-
-    <item
-        android:id="@+id/navigation_add_vegan_alternative"
-        android:icon="@drawable/ic_add_black_24px"
-        android:title="@string/add_vegan_alternative" />
 </menu>
