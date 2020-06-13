@@ -9,16 +9,17 @@
 
     <ImageView
         android:id="@+id/rectangleImage"
-        android:layout_width="368dp"
-        android:layout_height="230dp"
+        android:layout_width="363dp"
+        android:layout_height="472dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/rectangle"
         android:contentDescription="@string/rectangle"
         android:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.351" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -61,7 +62,7 @@
         android:id="@+id/add_vegan_alternatives"
         android:layout_width="285dp"
         android:layout_height="48dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="32dp"
         android:layout_marginBottom="60dp"
         android:elevation="10dp"
         android:textColor="#ffffff"
@@ -73,14 +74,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rectangleImage" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <EditText
         android:id="@+id/name_of_the_product"
         android:layout_width="300dp"
@@ -91,6 +84,10 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
+        android:textColor="#000000"
+        android:textColorHighlight="#4CAF50"
+        android:textColorHint="#FFFFFF"
+        android:textColorLink="#000000"
         app:layout_constraintBottom_toTopOf="@+id/type_the_product_description"
         app:layout_constraintEnd_toEndOf="@+id/rectangleImage"
         app:layout_constraintHorizontal_bias="0.493"
@@ -102,11 +99,13 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="24dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toBottomOf="@+id/rectangleImage"
+        android:textColor="#000000"
+        android:textColorHighlight="#4CAF50"
+        android:textColorHint="#FFFFFF"
+        android:textColorLink="#000000"
         app:layout_constraintEnd_toEndOf="@+id/rectangleImage"
         app:layout_constraintStart_toStartOf="@+id/rectangleImage"
         app:layout_constraintTop_toBottomOf="@+id/type_the_product_description" />

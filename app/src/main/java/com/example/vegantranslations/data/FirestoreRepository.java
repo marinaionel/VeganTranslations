@@ -38,11 +38,13 @@ public class FirestoreRepository implements Repository {
     private final String TAG = FirestoreRepository.class.getName();
     private Context context;
     private final RequestQueueSingleton requestQueue;
+    private IApiHandler apiHandler;
 
     public FirestoreRepository(Context context) {
         this.context = context;
         appDatabase = AppDatabase.getAppDatabase(context);
         requestQueue = RequestQueueSingleton.getInstance(context);
+        apiHandler = new ApiHandler(context);
         populateLocalDatabaseFromFirebase();
     }
 
@@ -125,41 +127,12 @@ public class FirestoreRepository implements Repository {
                     String id = document.getId();
                     Alternative tmp = new Alternative(id, (String) document.get("name"), (String) document.get("description"));
                     if (document.get("image_url") == null) {
-                        String query = tmp.getName().replace("\\s+", "%20");
-                        try {
-                            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, API_URL + query + QUERY_STATIC_PARAMS, null, response -> {
-                                Log.d(TAG, response.toString());
-                                try {
-                                    String thumbnail = "https:" + response.getJSONObject("data")
-                                            .getJSONObject("result").getJSONArray("items")
-                                            .getJSONObject(0)
-                                            .getString("thumbnail");
-
-                                    Log.d(TAG, thumbnail);
-                                    db.collection(ALTERNATIVES).document(tmp.getId()).update("image_url", thumbnail);
-                                    tmp.setImageUrl(thumbnail);
-                                    appDatabase.alternativeDao().insertAll(tmp);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
-                            }, error -> {
-                                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                                Log.e(TAG, "Site Info Error: " + error.getMessage());
-                                appDatabase.alternativeDao().insertAll(tmp);
-                            }) {
-                                @Override
-                                public Map<String, String> getHeaders() {
-                                    HashMap<String, String> headers = new HashMap<>();
-//                                  Simulate a browser client :)
-                                    headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36");
-                                    return headers;
-                                }
-                            };
-                            requestQueue.addToRequestQueue(jsonObjectRequest);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        apiHandler.getImage(tmp.getName(), (name) -> {
+                            db.collection(ALTERNATIVES).document(tmp.getId()).update("image_url", name);
+                            tmp.setImageUrl(name);
+                            appDatabase.alternativeDao().insertAll(tmp);
+                            return null;
+                        });
                     } else {
                         tmp.setImageUrl(document.getString("image_url"));
                         appDatabase.alternativeDao().insertAll(tmp);
