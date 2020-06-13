@@ -1,4 +1,4 @@
-package com.example.vegantranslations.data.repository.local.dao;
+package com.example.vegantranslations.data.dao;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;

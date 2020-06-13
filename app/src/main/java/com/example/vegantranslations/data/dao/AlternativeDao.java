@@ -1,4 +1,4 @@
-package com.example.vegantranslations.data.repository.local.dao;
+package com.example.vegantranslations.data.dao;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -33,4 +33,12 @@ public interface AlternativeDao {
 
     @Query("DELETE FROM " + Collections.ALTERNATIVES)
     void deleteAll();
+
+    @Query("SELECT id, alternatives.description, alternatives.name " +
+            "FROM alternative_fts " +
+            "JOIN alternatives " +
+            "ON docid = alternative_fts.rowid " +
+            "WHERE alternatives.name LIKE :text or alternatives.description like :text " +
+            "GROUP BY alternatives.id")
+    LiveData<List<Alternative>> searchFor(String text);
 }

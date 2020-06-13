@@ -1,7 +1,6 @@
 package com.example.vegantranslations.view.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,13 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Window;
 
 import com.example.vegantranslations.R;
 import com.example.vegantranslations.data.model.db.Alternative;
 import com.example.vegantranslations.data.model.db.NonVeganProduct;
 import com.example.vegantranslations.data.model.db.Purpose;
-import com.example.vegantranslations.view.adapters.ResultsAdapter;
+import com.example.vegantranslations.view.adapters.AlternativesAdapter;
 import com.example.vegantranslations.viewModel.ShowResultsViewModel;
 
 import java.util.List;
@@ -24,7 +22,7 @@ import java.util.Objects;
 public class ShowResultsActivity extends AppCompatActivity {
     private ShowResultsViewModel showResultsViewModel;
     private RecyclerView recyclerView;
-    private ResultsAdapter resultsAdapter;
+    private AlternativesAdapter alternativesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +49,10 @@ public class ShowResultsActivity extends AppCompatActivity {
     }
 
     private void onChanged(List<Alternative> alternatives) {
-        resultsAdapter = new ResultsAdapter(alternatives, getApplicationContext());
-        resultsAdapter.setOnItemClickListener(this::onItemClick);
-        recyclerView.setAdapter(resultsAdapter);
-        resultsAdapter.notifyDataSetChanged();
+        alternativesAdapter = new AlternativesAdapter(alternatives, getApplicationContext());
+        alternativesAdapter.setOnItemClickListener(this::onItemClick);
+        recyclerView.setAdapter(alternativesAdapter);
+        alternativesAdapter.notifyDataSetChanged();
     }
 
     private void onItemClick(Alternative alternative) {

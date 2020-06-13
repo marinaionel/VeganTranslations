@@ -1,4 +1,4 @@
-package com.example.vegantranslations.data.repository.local;
+package com.example.vegantranslations.data;
 
 import android.content.Context;
 
@@ -6,10 +6,11 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.vegantranslations.data.repository.local.dao.AlternativeDao;
-import com.example.vegantranslations.data.repository.local.dao.CategoryDao;
-import com.example.vegantranslations.data.repository.local.dao.NonVeganProductDao;
-import com.example.vegantranslations.data.repository.local.dao.PurposeDao;
+import com.example.vegantranslations.data.dao.AlternativeDao;
+import com.example.vegantranslations.data.dao.CategoryDao;
+import com.example.vegantranslations.data.dao.NonVeganProductDao;
+import com.example.vegantranslations.data.dao.PurposeDao;
+import com.example.vegantranslations.data.fts.AlternativeFts;
 import com.example.vegantranslations.data.model.db.Alternative;
 import com.example.vegantranslations.data.model.db.Category;
 import com.example.vegantranslations.data.model.db.NonVeganProduct;
@@ -17,7 +18,7 @@ import com.example.vegantranslations.data.model.db.ProductPurpose;
 import com.example.vegantranslations.data.model.db.ProductPurposeAlternative;
 import com.example.vegantranslations.data.model.db.Purpose;
 
-@Database(entities = {NonVeganProduct.class, Category.class, Purpose.class, Alternative.class, ProductPurpose.class, ProductPurposeAlternative.class}, version = 4, exportSchema = false)
+@Database(entities = {NonVeganProduct.class, Category.class, Purpose.class, Alternative.class, AlternativeFts.class, ProductPurpose.class, ProductPurposeAlternative.class}, version = 5, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
 

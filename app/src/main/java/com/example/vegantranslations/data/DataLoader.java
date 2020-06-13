@@ -1,9 +1,8 @@
-package com.example.vegantranslations.data.repository;
+package com.example.vegantranslations.data;
 
 import android.content.Context;
 import android.util.Log;
 
-import com.example.vegantranslations.data.repository.local.AppDatabase;
 import com.example.vegantranslations.data.model.db.Alternative;
 import com.example.vegantranslations.data.model.db.Category;
 import com.example.vegantranslations.data.model.db.NonVeganProduct;

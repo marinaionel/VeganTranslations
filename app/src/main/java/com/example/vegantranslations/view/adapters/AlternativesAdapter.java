@@ -32,14 +32,14 @@ import java.util.concurrent.atomic.AtomicReference;
 import static com.example.vegantranslations.data.network.ApiConstants.API_URL;
 import static com.example.vegantranslations.data.network.ApiConstants.QUERY_STATIC_PARAMS;
 
-public class ResultsAdapter extends Adapter<ResultsAdapter.ViewHolder> {
+public class AlternativesAdapter extends Adapter<AlternativesAdapter.ViewHolder> {
     private List<Alternative> alternatives;
     private Context context;
     private OnItemClickListener onItemClickListener;
-    private final String TAG = ResultsAdapter.class.getName();
+    private final String TAG = AlternativesAdapter.class.getName();
     private final RequestQueueSingleton requestQueue;
 
-    public ResultsAdapter(List<Alternative> alternatives, Context context) {
+    public AlternativesAdapter(List<Alternative> alternatives, Context context) {
         this.alternatives = alternatives;
         this.context = context;
         requestQueue = RequestQueueSingleton.getInstance(this.context);

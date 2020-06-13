@@ -2,6 +2,7 @@ package com.example.vegantranslations.data.model.db;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Fts4;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
@@ -12,23 +13,13 @@ public class Alternative implements Serializable {
     @PrimaryKey
     @NonNull
     private String id;
+    @NonNull
     private String name;
+    @NonNull
     private String description;
-    @Ignore
-    private String imageUrl;
 
     @Ignore
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    @Ignore
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    @Ignore
-    public Alternative(@NonNull String id, String name, String description) {
+    public Alternative(@NonNull String id, @NonNull String name, @NonNull String description) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -49,6 +40,7 @@ public class Alternative implements Serializable {
         this.id = id;
     }
 
+    @NonNull
     public String getName() {
         return name;
     }
@@ -57,6 +49,7 @@ public class Alternative implements Serializable {
         this.name = name;
     }
 
+    @NonNull
     public String getDescription() {
         return description;
     }

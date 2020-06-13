@@ -2,6 +2,7 @@ package com.example.vegantranslations.data.model.db;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Fts4;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
