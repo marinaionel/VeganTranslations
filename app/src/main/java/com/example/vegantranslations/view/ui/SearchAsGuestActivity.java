@@ -56,7 +56,7 @@ public class SearchAsGuestActivity extends AppCompatActivity {
             purposesAdapter.notifyDataSetChanged();
         });
 
-        makeItVegan = findViewById(R.id.show_vegan_alternatives);
+        makeItVegan = findViewById(R.id.add_vegan_alternatives);
         makeItVegan.reset();
 //        Log.d(TAG, String.valueOf(makeItVegan.getAnimation()));
         makeItVegan.setOnClickListener(v -> {

@@ -6,22 +6,17 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
-import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.vegantranslations.AddAlternative;
+import com.example.vegantranslations.view.ui.AddAlternative;
 import com.example.vegantranslations.R;
 import com.example.vegantranslations.data.model.db.Alternative;
 import com.example.vegantranslations.view.adapters.AlternativesAdapter;
@@ -29,8 +24,6 @@ import com.example.vegantranslations.viewModel.fragments.SearchAlternativesAsAdm
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
-
-import static androidx.core.view.MenuItemCompat.getActionView;
 
 public class SearchAlternativesAsAdminFragment extends Fragment {
     private SearchAlternativesAsAdminViewModel searchAlternativesAsAdminViewModel;

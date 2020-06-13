@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.vegantranslations.view;
+package com.example.vegantranslations.view.transformations;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

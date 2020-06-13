@@ -22,9 +22,20 @@
     <string name="welcome_to_vegan_translations">Welcome to Vegan Translations!</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="title_activity_search_as_guest">SearchAsGuestActivity</string>
-    <string name="add_vegan_alternative">Alternative</string>
+    <string name="alternatives">Alternatives</string>
+    <string name="add_vegan_alternative">ADD VEGAN ALTERNATIVE</string>
     <string name="add_connection">Add Connection</string>
     <string name="add_non_vegan_product">Non-Vegan Product</string>
     <string name="search_vegan_alternatives">Alternatives</string>
     <string name="action_search">Search</string>
+    <string name="type_the_name_of_the_product">Type the name of the product</string>
+    <string name="type_the_purpose">Type the purpose</string>
+    <string name="type_the_product_description">Type the product description</string>
+    <string name="error_add_alternative_1">Please type a name for the product!</string>
+    <string name="error_add_alternative_2">Name should be at least 2 characters long!</string>
+    <string name="error_add_alternative_3">Please write a description for the product!</string>
+    <string name="error_add_alternative_4">Description should be at least 10 character long!</string>
+    <string name="error_add_alternative_5">Name should not be longer than 50 characters!</string>
+    <string name="error_add_alternative_6">Description should not be longer than 150 characters!</string>
+    <string name="add_alternative_success">Added the alternative successfully!</string>
 </resources>

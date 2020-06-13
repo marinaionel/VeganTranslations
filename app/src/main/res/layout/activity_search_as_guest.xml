@@ -80,7 +80,7 @@
         app:layout_constraintStart_toEndOf="@+id/rectangleImage" />
 
     <com.unstoppable.submitbuttonview.SubmitButton
-        android:id="@+id/show_vegan_alternatives"
+        android:id="@+id/add_vegan_alternatives"
         android:layout_width="285dp"
         android:layout_height="48dp"
         android:layout_marginTop="68dp"

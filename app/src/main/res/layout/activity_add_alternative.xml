@@ -4,6 +4,111 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddAlternative">
+    android:background="@drawable/gradient"
+    tools:context=".view.ui.SearchAsGuestActivity">
+
+    <ImageView
+        android:id="@+id/rectangleImage"
+        android:layout_width="368dp"
+        android:layout_height="230dp"
+        android:background="@drawable/rectangle"
+        android:contentDescription="@string/rectangle"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.351" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="123dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/todo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_vegan_logo_white" />
+
+    <TextView
+        android:id="@+id/type_the_name_of_the_product_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:elevation="11dp"
+        android:text="@string/type_the_name_of_the_product"
+        android:textAllCaps="true"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/rectangleImage"
+        app:layout_constraintStart_toEndOf="@+id/rectangleImage"
+        app:layout_constraintTop_toTopOf="@+id/rectangleImage" />
+
+    <TextView
+        android:id="@+id/type_the_product_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:elevation="11dp"
+        android:text="@string/type_the_product_description"
+        android:textAllCaps="true"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/rectangleImage"
+        app:layout_constraintStart_toEndOf="@+id/rectangleImage"
+        app:layout_constraintTop_toBottomOf="@+id/name_of_the_product" />
+
+    <com.unstoppable.submitbuttonview.SubmitButton
+        android:id="@+id/add_vegan_alternatives"
+        android:layout_width="285dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginBottom="60dp"
+        android:elevation="10dp"
+        android:textColor="#ffffff"
+        app:buttonColor="#ffffff"
+        app:buttonText="@string/add_vegan_alternative"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rectangleImage" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/name_of_the_product"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/type_the_product_description"
+        app:layout_constraintEnd_toEndOf="@+id/rectangleImage"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="@+id/rectangleImage"
+        app:layout_constraintTop_toBottomOf="@+id/type_the_name_of_the_product_tv" />
+
+    <EditText
+        android:id="@+id/description_tv"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangleImage"
+        app:layout_constraintEnd_toEndOf="@+id/rectangleImage"
+        app:layout_constraintStart_toStartOf="@+id/rectangleImage"
+        app:layout_constraintTop_toBottomOf="@+id/type_the_product_description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

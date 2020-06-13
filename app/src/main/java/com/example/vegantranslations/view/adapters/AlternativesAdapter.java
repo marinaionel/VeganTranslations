@@ -18,7 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.vegantranslations.R;
 import com.example.vegantranslations.data.model.db.Alternative;
 import com.example.vegantranslations.data.network.RequestQueueSingleton;
-import com.example.vegantranslations.view.CircleTransform;
+import com.example.vegantranslations.view.transformations.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;

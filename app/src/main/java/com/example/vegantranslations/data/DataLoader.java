@@ -23,7 +23,7 @@ import static com.example.vegantranslations.data.Collections.PURPOSE;
 import static java.util.Objects.requireNonNull;
 
 public class DataLoader {
-    private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    private final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private final String TAG = "Data Loader";
     private static DataLoader instance = null;
     private static AppDatabase appDatabase;
@@ -104,7 +104,7 @@ public class DataLoader {
         });
     }
 
-    private void loadAlternatives() {
+    public void loadAlternatives() {
         firestore.collection(ALTERNATIVES).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : requireNonNull(task.getResult())) {
