@@ -1,2 +1,2 @@
-# marinicaionel-gmail.com
-VeganTranslations
+# Vegan Translations
+Project for AND1
