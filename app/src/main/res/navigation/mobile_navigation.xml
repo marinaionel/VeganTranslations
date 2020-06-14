@@ -7,20 +7,20 @@
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.example.vegantranslations.view.ui.fragments.SearchAlternativesAsAdminFragment"
+        android:name="com.example.vegantranslations.view.ui.fragments.AlternativesFragment"
         android:label="@string/search_vegan_alternatives"
-        tools:layout="@layout/fragment_search_alternatives" />
+        tools:layout="@layout/fragment_alternatives" />
 
     <fragment
         android:id="@+id/navigation_add_non_vegan_product"
-        android:name="com.example.vegantranslations.view.ui.fragments.AddNonVeganProductFragment"
+        android:name="com.example.vegantranslations.view.ui.fragments.NonVeganProductFragment"
         android:label="@string/add_non_vegan_product"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_non_vegan_products" />
 
     <fragment
         android:id="@+id/navigation_add_connection"
         android:name="com.example.vegantranslations.view.ui.fragments.AddConnectionFragment"
         android:label="@string/add_connection"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_add_connection" />
 
 </navigation>

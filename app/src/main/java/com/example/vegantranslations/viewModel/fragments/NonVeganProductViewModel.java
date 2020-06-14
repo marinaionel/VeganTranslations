@@ -8,9 +8,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class AddNonVeganProductViewModel extends AndroidViewModel {
+public class NonVeganProductViewModel extends AndroidViewModel {
 
-    public AddNonVeganProductViewModel(@NonNull Application application) {
+    public NonVeganProductViewModel(@NonNull Application application) {
         super(application);
     }
 }

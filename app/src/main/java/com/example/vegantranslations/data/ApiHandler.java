@@ -26,7 +26,7 @@ public class ApiHandler implements IApiHandler {
     }
 
     @Override
-    public void getImage(String name, Function<String, Void> function) {
+    public void getImage(String name, Function<String, Void> callback) {
         String query = name.replace("\\s+", "%20");
         try {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, API_URL + query + QUERY_STATIC_PARAMS, null, response -> {
@@ -38,7 +38,7 @@ public class ApiHandler implements IApiHandler {
                             .getString("thumbnail");
 
                     Log.d(TAG, thumbnail);
-                    function.apply(thumbnail);
+                    callback.apply(thumbnail);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -46,7 +46,7 @@ public class ApiHandler implements IApiHandler {
             }, error -> {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 Log.e(TAG, "Site Info Error: " + error.getMessage());
-                function.apply(null);
+                callback.apply(null);
             }) {
                 @Override
                 public Map<String, String> getHeaders() {

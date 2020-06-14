@@ -13,12 +13,12 @@ import com.example.vegantranslations.data.AppDatabase;
 
 import java.util.List;
 
-public class SearchAlternativesAsAdminViewModel extends AndroidViewModel {
+public class AlternativesViewModel extends AndroidViewModel {
     private LiveData<List<Alternative>> alternatives;
     private AppDatabase appDatabase;
     private MutableLiveData<String> query;
 
-    public SearchAlternativesAsAdminViewModel(@NonNull Application application) {
+    public AlternativesViewModel(@NonNull Application application) {
         super(application);
         appDatabase = AppDatabase.getAppDatabase(super.getApplication().getApplicationContext());
         query = new MutableLiveData<>();

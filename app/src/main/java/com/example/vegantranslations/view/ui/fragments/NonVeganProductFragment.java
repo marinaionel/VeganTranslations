@@ -11,16 +11,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.vegantranslations.R;
-import com.example.vegantranslations.viewModel.fragments.AddConnectionViewModel;
+import com.example.vegantranslations.viewModel.fragments.NonVeganProductViewModel;
 
-public class AddConnectionFragment extends Fragment {
+public class NonVeganProductFragment extends Fragment {
 
-    private AddConnectionViewModel addConnectionViewModel;
+    private NonVeganProductViewModel searchNonVeganProductViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        addConnectionViewModel = new ViewModelProvider(this).get(AddConnectionViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_add_connection, container, false);
-        final TextView textView = root.findViewById(R.id.text_coming_soon_2);
+        searchNonVeganProductViewModel = new ViewModelProvider(this).get(NonVeganProductViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_non_vegan_products, container, false);
+        final TextView textView = root.findViewById(R.id.text_coming_soon_1);
         textView.setText(R.string.coming_soon);
         return root;
     }

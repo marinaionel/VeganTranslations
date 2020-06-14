@@ -1,21 +1,14 @@
 package com.example.vegantranslations.view.ui.fragments;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,42 +18,41 @@ import com.example.vegantranslations.view.ui.AddAlternative;
 import com.example.vegantranslations.R;
 import com.example.vegantranslations.data.model.db.Alternative;
 import com.example.vegantranslations.view.adapters.AlternativesAdapter;
-import com.example.vegantranslations.viewModel.fragments.SearchAlternativesAsAdminViewModel;
+import com.example.vegantranslations.viewModel.fragments.AlternativesViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class SearchAlternativesAsAdminFragment extends Fragment {
-    private SearchAlternativesAsAdminViewModel searchAlternativesAsAdminViewModel;
+public class AlternativesFragment extends Fragment {
+    private AlternativesViewModel alternativesViewModel;
     private RecyclerView recyclerViewAlternatives;
     private View root;
     private AlternativesAdapter alternativesAdapter;
-    private final String TAG = SearchAlternativesAsAdminFragment.class.getName();
+    private final String TAG = AlternativesFragment.class.getName();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_search_alternatives, container, false);
-        searchAlternativesAsAdminViewModel = new ViewModelProvider(this).get(SearchAlternativesAsAdminViewModel.class);
+        root = inflater.inflate(R.layout.fragment_alternatives, container, false);
+        alternativesViewModel = new ViewModelProvider(this).get(AlternativesViewModel.class);
 
         recyclerViewAlternatives = root.findViewById(R.id.recycler_view_alternatives);
         recyclerViewAlternatives.setHasFixedSize(true);
         recyclerViewAlternatives.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
-        searchAlternativesAsAdminViewModel.getAlternatives().observe(getViewLifecycleOwner(), this::onChanged);
+        alternativesViewModel.getAlternatives().observe(getViewLifecycleOwner(), this::onChanged);
 
         SearchView searchAlternatives = root.findViewById(R.id.search_alternatives);
         searchAlternatives.setSubmitButtonEnabled(false);
-        searchAlternatives.setIconified(true);
+        searchAlternatives.setOnClickListener(v -> searchAlternatives.setIconified(false));
         searchAlternatives.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                searchAlternativesAsAdminViewModel.filter(s);
+                alternativesViewModel.filter(s);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                searchAlternativesAsAdminViewModel.filter(s);
-                return true;
+                return false;
             }
         });
 

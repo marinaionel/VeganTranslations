@@ -29,7 +29,8 @@
         </activity>
         <activity
             android:name=".view.ui.AdministratorViewActivity"
-            android:label="@string/title_activity_admin_u_i" />
+            android:label="@string/title_activity_admin_u_i"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".view.ui.SearchAsGuestActivity"
             android:label="@string/title_activity_search_as_guest"

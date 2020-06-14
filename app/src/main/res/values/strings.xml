@@ -38,4 +38,5 @@
     <string name="error_add_alternative_5">Name should not be longer than 50 characters!</string>
     <string name="error_add_alternative_6">Description should not be longer than 300 characters!</string>
     <string name="add_alternative_success">Added the alternative successfully!</string>
+    <string name="coming_soon">Coming soon...</string>
 </resources>
