@@ -38,7 +38,7 @@ public interface AlternativeDao {
     @Query("DELETE FROM " + Collections.ALTERNATIVES)
     void deleteAll();
 
-    @Query("SELECT id, alternatives.description, alternatives.name " +
+    @Query("SELECT id, alternatives.description, alternatives.name, alternatives.ImageUrl " +
             "FROM alternative_fts " +
             "JOIN alternatives " +
             "ON docid = alternative_fts.rowid " +

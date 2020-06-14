@@ -12,7 +12,6 @@ import com.example.vegantranslations.model.local.db.entities.ProductPurposeAlter
 import com.example.vegantranslations.model.local.db.entities.Purpose;
 import com.example.vegantranslations.model.network.ApiHandler;
 import com.example.vegantranslations.model.network.IApiHandler;
-import com.example.vegantranslations.model.network.RequestQueueSingleton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -28,18 +27,16 @@ import static com.example.vegantranslations.model.repository.Collections.PRODUCT
 import static com.example.vegantranslations.model.repository.Collections.PURPOSE;
 import static java.util.Objects.requireNonNull;
 
-public class FirestoreRepository implements Repository {
+public class FirebaseRepository implements Repository {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static AppDatabase appDatabase;
-    private final String TAG = FirestoreRepository.class.getName();
+    private final String TAG = FirebaseRepository.class.getName();
     private Context context;
-    private final RequestQueueSingleton requestQueue;
     private IApiHandler apiHandler;
 
-    public FirestoreRepository(Context context) {
+    public FirebaseRepository(Context context) {
         this.context = context;
         appDatabase = AppDatabase.getAppDatabase(context);
-        requestQueue = RequestQueueSingleton.getInstance(context);
         apiHandler = new ApiHandler(context);
         populateLocalDatabaseFromFirebase();
     }

@@ -7,11 +7,11 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.vegantranslations.R;
-import com.example.vegantranslations.model.repository.FirestoreRepository;
+import com.example.vegantranslations.model.repository.FirebaseRepository;
 import com.example.vegantranslations.model.repository.Repository;
 
 public class AddAlternativeViewModel extends AndroidViewModel {
-    private final Repository repository = new FirestoreRepository(super.getApplication().getApplicationContext());
+    private final Repository repository = new FirebaseRepository(super.getApplication().getApplicationContext());
     private MutableLiveData<String> info = new MutableLiveData<>();
 
     public AddAlternativeViewModel(@NonNull Application application) {

@@ -4,7 +4,7 @@ import android.app.Application;
 //import android.content.SharedPreferences;
 //import android.preference.PreferenceManager;
 
-import com.example.vegantranslations.model.repository.FirestoreRepository;
+import com.example.vegantranslations.model.repository.FirebaseRepository;
 import com.example.vegantranslations.model.repository.Repository;
 
 public class MyApp extends Application {
@@ -14,6 +14,6 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
 //        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        firestoreRepository = new FirestoreRepository(this);
+        firestoreRepository = new FirebaseRepository(this);
     }
 }
