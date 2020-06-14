@@ -135,4 +135,24 @@ public class UiTests {
                 .atPositionOnView(0, R.id.rowTextTitle))
                 .check(matches(withText("Flax seeds")));
     }
+
+    @Test
+    public void testNoResults() {
+        onView(withId(R.id.continue_as_guest)).perform(click());
+
+        onView(withId(R.id.products)).perform(click());
+        onData(anything()).atPosition(4).perform(click());
+        onView(withId(R.id.products)).check(matches(withSpinnerText(containsString("chicken eggs"))));
+
+        onView(withId(R.id.purpose)).perform(click());
+        onData(anything()).atPosition(0).perform(click());
+        onView(withId(R.id.purpose)).check(matches(withSpinnerText(containsString("frying"))));
+
+        Intent intent = new Intent(context, ShowResultsActivity.class);
+        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, intent);
+        intending(allOf(toPackage("com.example.vegantranslations.view"), hasExtraWithKey("product"), hasExtraWithKey("purpose"))).respondWith(result);
+        onView(withId(R.id.show_vegan_alternatives)).perform(click());
+
+        onView(withId(Integer.parseInt("5"))).check(matches(withText(R.string.no_results)));
+    }
 }
