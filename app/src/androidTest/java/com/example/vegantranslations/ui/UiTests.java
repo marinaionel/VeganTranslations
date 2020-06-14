@@ -4,8 +4,14 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 
+import androidx.test.espresso.PerformException;
+import androidx.test.espresso.UiController;
+import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.espresso.util.HumanReadables;
+import androidx.test.espresso.util.TreeIterables;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -13,14 +19,19 @@ import androidx.test.rule.ActivityTestRule;
 
 import com.example.vegantranslations.R;
 import com.example.vegantranslations.view.ui.AddAlternative;
+import com.example.vegantranslations.view.ui.AdministratorViewActivity;
 import com.example.vegantranslations.view.ui.MainActivity;
 import com.example.vegantranslations.view.ui.SearchAsGuestActivity;
 import com.example.vegantranslations.view.ui.ShowResultsActivity;
 
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
@@ -32,6 +43,7 @@ import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtraWithK
 import static androidx.test.espresso.intent.matcher.IntentMatchers.toPackage;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -154,5 +166,61 @@ public class UiTests {
         onView(withId(R.id.show_vegan_alternatives)).perform(click());
 
         onView(withId(Integer.parseInt("5"))).check(matches(withText(R.string.no_results)));
+    }
+
+    //https://stackoverflow.com/questions/21417954/espresso-thread-sleep
+    public static ViewAction waitId(final int viewId, final long millis) {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isRoot();
+            }
+
+            @Override
+            public String getDescription() {
+                return "wait for a specific view with id <" + viewId + "> during " + millis + " millis.";
+            }
+
+            @Override
+            public void perform(final UiController uiController, final View view) {
+                uiController.loopMainThreadUntilIdle();
+                final long startTime = System.currentTimeMillis();
+                final long endTime = startTime + millis;
+                final Matcher<View> viewMatcher = withId(viewId);
+
+                do {
+                    for (View child : TreeIterables.breadthFirstViewTraversal(view)) {
+                        // found view with required ID
+                        if (viewMatcher.matches(child)) {
+                            return;
+                        }
+                    }
+
+                    uiController.loopMainThreadForAtLeast(50);
+                }
+                while (System.currentTimeMillis() < endTime);
+
+                // timeout happens
+                throw new PerformException.Builder()
+                        .withActionDescription(this.getDescription())
+                        .withViewDescription(HumanReadables.describe(view))
+                        .withCause(new TimeoutException())
+                        .build();
+            }
+        };
+    }
+
+    @Test
+    public void testLoginAndAdd() {
+        onView(withId(R.id.login)).perform(click());
+        onView(isRoot()).perform(waitId(R.id.fab_add_alternative, TimeUnit.SECONDS.toMillis(5000)));
+        onView(withId(R.id.fab_add_alternative)).check(matches(isDisplayed()));
+        onView(withId(R.id.fab_add_alternative)).perform(click());
+        onView(withId(R.id.name_of_the_product)).perform(replaceText("Oat milk"));
+        onView(withId(R.id.description_tv)).perform(replaceText("Oat milk is a plant milk derived from whole oat (Avena spp.) grains by extracting the plant material with water. Oat milk has a creamy texture and oatmeal-like flavor, and is manufactured in various flavors, such as sweetened, unsweetened, vanilla or chocolate."));
+        Intent intent = new Intent(context, AdministratorViewActivity.class);
+        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, intent);
+        intending(toPackage("com.example.vegantranslations.view")).respondWith(result);
+        onView(withId(R.id.add_vegan_alternatives)).perform(click());
     }
 }
