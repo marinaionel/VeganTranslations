@@ -24,6 +24,9 @@ public interface PurposeDao {
     @Query("select purpose.* from " + Collections.PURPOSE + " left join product_purpose on purpose.id=product_purpose.purpose_id where product_id=:productId")
     LiveData<List<Purpose>> getPurposesForProduct(String productId);
 
+    @Query("select * from purpose where name=:name COLLATE NOCASE limit 1")
+    LiveData<Purpose> getPurposeByName(String name);
+
     @Delete
     void delete(Purpose nonVeganProduct);
 

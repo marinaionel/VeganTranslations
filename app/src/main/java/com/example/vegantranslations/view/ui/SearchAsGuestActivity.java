@@ -56,14 +56,14 @@ public class SearchAsGuestActivity extends AppCompatActivity {
             purposesAdapter.notifyDataSetChanged();
         });
 
-        makeItVegan = findViewById(R.id.add_vegan_alternatives);
+        makeItVegan = findViewById(R.id.show_vegan_alternatives);
         makeItVegan.reset();
 //        Log.d(TAG, String.valueOf(makeItVegan.getAnimation()));
         makeItVegan.setOnClickListener(v -> {
             Intent myIntent = new Intent(SearchAsGuestActivity.this, ShowResultsActivity.class);
             myIntent.putExtra("product", (NonVeganProduct) products.getSelectedItem());
             myIntent.putExtra("purpose", (Purpose) purposes.getSelectedItem());
-            SearchAsGuestActivity.this.startActivityForResult(myIntent, 1);
+            startActivityForResult(myIntent, 1);
             makeItVegan.doResult(true);
         });
 

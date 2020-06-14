@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.vegantranslations.R;
 import com.example.vegantranslations.model.local.db.entities.Alternative;
@@ -49,10 +51,26 @@ public class ShowResultsActivity extends AppCompatActivity {
     }
 
     private void onChanged(List<Alternative> alternatives) {
-        alternativesAdapter = new AlternativesAdapter(alternatives, getApplicationContext());
-        alternativesAdapter.setOnItemClickListener(this::onItemClick);
-        recyclerView.setAdapter(alternativesAdapter);
-        alternativesAdapter.notifyDataSetChanged();
+        if (alternatives == null || alternatives.size() == 0) {
+            LinearLayout linearLayout = findViewById(R.id.show_results_layout);
+            linearLayout.removeAllViews();
+
+            TextView textView = new TextView(getApplicationContext());
+            textView.setPaddingRelative(10, 10, 0, 0);
+            textView.setText(R.string.no_results);
+            textView.setTextSize(35);
+            textView.setId(Integer.parseInt("5"));
+            textView.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.FILL_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+
+            linearLayout.addView(textView);
+        } else {
+            alternativesAdapter = new AlternativesAdapter(alternatives, getApplicationContext());
+            alternativesAdapter.setOnItemClickListener(this::onItemClick);
+            recyclerView.setAdapter(alternativesAdapter);
+            alternativesAdapter.notifyDataSetChanged();
+        }
     }
 
     private void onItemClick(Alternative alternative) {

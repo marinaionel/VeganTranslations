@@ -86,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <com.unstoppable.submitbuttonview.SubmitButton
-        android:id="@+id/add_vegan_alternatives"
+        android:id="@+id/show_vegan_alternatives"
         android:layout_width="285dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"

@@ -27,6 +27,9 @@ public interface NonVeganProductDao {
     @Query("select * from non_vegan_products where id = :id")
     LiveData<NonVeganProduct> getProductById(String id);
 
+    @Query("select * from non_vegan_products where name=:name COLLATE NOCASE limit 1")
+    LiveData<NonVeganProduct> getNonVeganProductByName(String name);
+
     @Delete
     void delete(NonVeganProduct nonVeganProduct);
 
