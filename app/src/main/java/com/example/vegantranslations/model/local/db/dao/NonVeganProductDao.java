@@ -1,4 +1,4 @@
-package com.example.vegantranslations.data.dao;
+package com.example.vegantranslations.model.local.db.dao;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -8,8 +8,8 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.example.vegantranslations.data.model.db.NonVeganProduct;
-import com.example.vegantranslations.data.model.db.ProductPurpose;
+import com.example.vegantranslations.model.local.db.entities.NonVeganProduct;
+import com.example.vegantranslations.model.local.db.entities.ProductPurpose;
 
 import java.util.List;
 

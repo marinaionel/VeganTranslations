@@ -1,4 +1,4 @@
-package com.example.vegantranslations.data;
+package com.example.vegantranslations.model.repository;
 
 public class Collections {
     public static final String NON_VEGAN_PRODUCTS = "non_vegan_products";

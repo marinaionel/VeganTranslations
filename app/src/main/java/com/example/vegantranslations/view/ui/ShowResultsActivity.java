@@ -10,9 +10,9 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.vegantranslations.R;
-import com.example.vegantranslations.data.model.db.Alternative;
-import com.example.vegantranslations.data.model.db.NonVeganProduct;
-import com.example.vegantranslations.data.model.db.Purpose;
+import com.example.vegantranslations.model.local.db.entities.Alternative;
+import com.example.vegantranslations.model.local.db.entities.NonVeganProduct;
+import com.example.vegantranslations.model.local.db.entities.Purpose;
 import com.example.vegantranslations.view.adapters.AlternativesAdapter;
 import com.example.vegantranslations.viewModel.ShowResultsViewModel;
 

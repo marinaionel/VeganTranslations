@@ -1,4 +1,4 @@
-package com.example.vegantranslations.data;
+package com.example.vegantranslations.model.network;
 
 import java.util.function.Function;
 

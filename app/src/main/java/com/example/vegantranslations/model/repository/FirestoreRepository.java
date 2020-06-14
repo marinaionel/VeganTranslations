@@ -1,35 +1,31 @@
-package com.example.vegantranslations.data;
+package com.example.vegantranslations.model.repository;
 
 import android.content.Context;
 import android.util.Log;
 
-import com.android.volley.Request;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.vegantranslations.data.model.db.Alternative;
-import com.example.vegantranslations.data.model.db.Category;
-import com.example.vegantranslations.data.model.db.NonVeganProduct;
-import com.example.vegantranslations.data.model.db.ProductPurpose;
-import com.example.vegantranslations.data.model.db.ProductPurposeAlternative;
-import com.example.vegantranslations.data.model.db.Purpose;
-import com.example.vegantranslations.data.network.RequestQueueSingleton;
+import com.example.vegantranslations.model.local.db.AppDatabase;
+import com.example.vegantranslations.model.local.db.entities.Alternative;
+import com.example.vegantranslations.model.local.db.entities.Category;
+import com.example.vegantranslations.model.local.db.entities.NonVeganProduct;
+import com.example.vegantranslations.model.local.db.entities.ProductPurpose;
+import com.example.vegantranslations.model.local.db.entities.ProductPurposeAlternative;
+import com.example.vegantranslations.model.local.db.entities.Purpose;
+import com.example.vegantranslations.model.network.ApiHandler;
+import com.example.vegantranslations.model.network.IApiHandler;
+import com.example.vegantranslations.model.network.RequestQueueSingleton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-
-import org.json.JSONException;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.vegantranslations.data.Collections.ALTERNATIVES;
-import static com.example.vegantranslations.data.Collections.CATEGORY;
-import static com.example.vegantranslations.data.Collections.NON_VEGAN_PRODUCTS;
-import static com.example.vegantranslations.data.Collections.PRODUCT_PURPOSE_ALTERNATIVE;
-import static com.example.vegantranslations.data.Collections.PURPOSE;
-import static com.example.vegantranslations.data.network.ApiConstants.API_URL;
-import static com.example.vegantranslations.data.network.ApiConstants.QUERY_STATIC_PARAMS;
+import static com.example.vegantranslations.model.repository.Collections.ALTERNATIVES;
+import static com.example.vegantranslations.model.repository.Collections.CATEGORY;
+import static com.example.vegantranslations.model.repository.Collections.NON_VEGAN_PRODUCTS;
+import static com.example.vegantranslations.model.repository.Collections.PRODUCT_PURPOSE_ALTERNATIVE;
+import static com.example.vegantranslations.model.repository.Collections.PURPOSE;
 import static java.util.Objects.requireNonNull;
 
 public class FirestoreRepository implements Repository {

@@ -8,8 +8,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
-import com.example.vegantranslations.data.model.db.Alternative;
-import com.example.vegantranslations.data.AppDatabase;
+import com.example.vegantranslations.model.local.db.entities.Alternative;
+import com.example.vegantranslations.model.local.db.AppDatabase;
 
 import java.util.List;
 

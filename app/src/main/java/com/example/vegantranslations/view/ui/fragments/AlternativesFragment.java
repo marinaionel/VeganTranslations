@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vegantranslations.view.ui.AddAlternative;
 import com.example.vegantranslations.R;
-import com.example.vegantranslations.data.model.db.Alternative;
+import com.example.vegantranslations.model.local.db.entities.Alternative;
 import com.example.vegantranslations.view.adapters.AlternativesAdapter;
 import com.example.vegantranslations.viewModel.fragments.AlternativesViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -46,13 +46,13 @@ public class AlternativesFragment extends Fragment {
         searchAlternatives.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                alternativesViewModel.filter(s);
-                return true;
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                return false;
+                alternativesViewModel.filter(s);
+                return true;
             }
         });
 

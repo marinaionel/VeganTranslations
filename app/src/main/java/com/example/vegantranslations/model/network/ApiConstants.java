@@ -1,4 +1,4 @@
-package com.example.vegantranslations.data.network;
+package com.example.vegantranslations.model.network;
 
 public class ApiConstants {
     public static final String API_URL = "https://api.qwant.com/api/search/images?count=1&q=";

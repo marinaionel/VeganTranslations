@@ -9,10 +9,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
-import com.example.vegantranslations.data.AppDatabase;
-import com.example.vegantranslations.data.model.db.Alternative;
-import com.example.vegantranslations.data.model.db.NonVeganProduct;
-import com.example.vegantranslations.data.model.db.Purpose;
+import com.example.vegantranslations.model.local.db.AppDatabase;
+import com.example.vegantranslations.model.local.db.entities.Alternative;
+import com.example.vegantranslations.model.local.db.entities.NonVeganProduct;
+import com.example.vegantranslations.model.local.db.entities.Purpose;
 
 import java.util.List;
 import java.util.Objects;

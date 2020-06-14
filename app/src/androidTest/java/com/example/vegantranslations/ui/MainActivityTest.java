@@ -1,7 +1,10 @@
 package com.example.vegantranslations.ui;
 
+import android.content.Intent;
+
 import com.example.vegantranslations.R;
 import com.example.vegantranslations.view.ui.MainActivity;
+import com.example.vegantranslations.view.ui.SearchAsGuestActivity;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -13,6 +16,7 @@ import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 @RunWith(AndroidJUnit4.class)
@@ -29,12 +33,11 @@ public class MainActivityTest {
     @Test
     public void test1() {
         // Type text and then press the button.
-        /*onView(withId(R.id.login))
+        onView(withId(R.id.login))
                 .perform();
-        onView(withId(R.id.changeTextBt)).perform(click());
+        onView(withId(R.id.continue_as_guest)).perform(click());
 
-        // Check that the text was changed.
-        onView(withId(R.id.textToBeChanged))
-                .check(matches(withText(stringToBetyped)));*/
+//        Intent intent = new Intent(MainActivity., SearchAsGuestActivity.class);
+
     }
 }

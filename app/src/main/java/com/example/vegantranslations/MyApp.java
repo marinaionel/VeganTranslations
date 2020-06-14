@@ -4,8 +4,8 @@ import android.app.Application;
 //import android.content.SharedPreferences;
 //import android.preference.PreferenceManager;
 
-import com.example.vegantranslations.data.FirestoreRepository;
-import com.example.vegantranslations.data.Repository;
+import com.example.vegantranslations.model.repository.FirestoreRepository;
+import com.example.vegantranslations.model.repository.Repository;
 
 public class MyApp extends Application {
     private Repository firestoreRepository;

@@ -1,4 +1,4 @@
-package com.example.vegantranslations.data;
+package com.example.vegantranslations.model.network;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,7 +6,6 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.vegantranslations.data.network.RequestQueueSingleton;
 
 import org.json.JSONException;
 
@@ -14,8 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import static com.example.vegantranslations.data.network.ApiConstants.API_URL;
-import static com.example.vegantranslations.data.network.ApiConstants.QUERY_STATIC_PARAMS;
+import static com.example.vegantranslations.model.network.ApiConstants.API_URL;
+import static com.example.vegantranslations.model.network.ApiConstants.QUERY_STATIC_PARAMS;
 
 public class ApiHandler implements IApiHandler {
     private final String TAG = ApiHandler.class.getName();

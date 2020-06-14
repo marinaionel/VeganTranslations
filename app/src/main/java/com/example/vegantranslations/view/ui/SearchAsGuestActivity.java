@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.vegantranslations.R;
-import com.example.vegantranslations.data.model.db.NonVeganProduct;
-import com.example.vegantranslations.data.model.db.Purpose;
+import com.example.vegantranslations.model.local.db.entities.NonVeganProduct;
+import com.example.vegantranslations.model.local.db.entities.Purpose;
 import com.example.vegantranslations.viewModel.SearchAsGuestViewModel;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 import com.unstoppable.submitbuttonview.SubmitButton;

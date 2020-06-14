@@ -1,7 +1,6 @@
 package com.example.vegantranslations.view.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,25 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
-import com.android.volley.Request;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.vegantranslations.R;
-import com.example.vegantranslations.data.model.db.Alternative;
-import com.example.vegantranslations.data.network.RequestQueueSingleton;
+import com.example.vegantranslations.model.local.db.entities.Alternative;
 import com.example.vegantranslations.view.transformations.CircleTransform;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONException;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
-
-import static com.example.vegantranslations.data.network.ApiConstants.API_URL;
-import static com.example.vegantranslations.data.network.ApiConstants.QUERY_STATIC_PARAMS;
 
 public class AlternativesAdapter extends Adapter<AlternativesAdapter.ViewHolder> {
     private List<Alternative> alternatives;

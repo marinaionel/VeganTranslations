@@ -9,8 +9,12 @@
 
     <ImageView
         android:id="@+id/rectangleImage"
-        android:layout_width="375dp"
-        android:layout_height="277dp"
+        android:layout_width="343dp"
+        android:layout_height="315dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="60dp"
         android:background="@drawable/rectangle"
         android:contentDescription="@string/rectangle"
         android:elevation="10dp"
@@ -35,55 +39,59 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="22dp"
+        android:layout_marginTop="32dp"
         android:elevation="11dp"
         android:text="@string/choose_a_product"
         android:textAllCaps="true"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/products"
         app:layout_constraintEnd_toStartOf="@+id/rectangleImage"
         app:layout_constraintStart_toEndOf="@+id/rectangleImage"
         app:layout_constraintTop_toTopOf="@+id/rectangleImage" />
 
     <com.toptoche.searchablespinnerlibrary.SearchableSpinner
         android:id="@+id/products"
-        android:layout_width="341dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="60dp"
+        android:layout_width="330dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
         android:elevation="11dp"
         app:layout_constraintEnd_toStartOf="@+id/rectangleImage"
         app:layout_constraintStart_toEndOf="@+id/rectangleImage"
-        app:layout_constraintTop_toTopOf="@+id/rectangleImage" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="32dp"
         android:elevation="11dp"
         android:text="@string/select_purpose"
         android:textAllCaps="true"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/purpose"
         app:layout_constraintEnd_toStartOf="@+id/rectangleImage"
-        app:layout_constraintStart_toEndOf="@+id/rectangleImage" />
+        app:layout_constraintStart_toEndOf="@+id/rectangleImage"
+        app:layout_constraintTop_toBottomOf="@+id/products" />
 
     <com.toptoche.searchablespinnerlibrary.SearchableSpinner
         android:id="@+id/purpose"
-        android:layout_width="341dp"
-        android:layout_height="64dp"
-        android:layout_marginBottom="28dp"
+        android:layout_width="330dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="32dp"
         android:elevation="11dp"
         app:layout_constraintBottom_toBottomOf="@+id/rectangleImage"
         app:layout_constraintEnd_toStartOf="@+id/rectangleImage"
-        app:layout_constraintStart_toEndOf="@+id/rectangleImage" />
+        app:layout_constraintStart_toEndOf="@+id/rectangleImage"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <com.unstoppable.submitbuttonview.SubmitButton
         android:id="@+id/add_vegan_alternatives"
         android:layout_width="285dp"
         android:layout_height="48dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="60dp"
         android:elevation="10dp"
         android:textColor="#ffffff"
