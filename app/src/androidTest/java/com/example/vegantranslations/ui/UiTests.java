@@ -35,6 +35,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static com.example.vegantranslations.ui.TestUtils.withRecyclerView;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.containsString;
@@ -50,8 +51,6 @@ public class UiTests {
 
     @Rule
     public IntentsTestRule<MainActivity> mainActivityIntentsTestRule = new IntentsTestRule<>(MainActivity.class);
-    @Rule
-    public ActivityTestRule<AddAlternative> addAlternativeActivityTestRule = new ActivityTestRule(AddAlternative.class);
     public Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
     @Test
@@ -63,11 +62,11 @@ public class UiTests {
     }
 
     @Test
-    public void testSelectingAlternatives() {
+    public void testSelectingAlternatives1() {
         onView(withId(R.id.continue_as_guest)).perform(click());
 
         onView(withId(R.id.products)).perform(click());
-        onData(anything()).atPosition(4).perform(click());
+        onData(anything()).atPosition(5).perform(click());
         onView(withId(R.id.products)).check(matches(withSpinnerText(containsString("honey"))));
 
         onView(withId(R.id.purpose)).perform(click());
@@ -78,15 +77,62 @@ public class UiTests {
         Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, intent);
         intending(allOf(toPackage("com.example.vegantranslations.view"), hasExtraWithKey("product"), hasExtraWithKey("purpose"))).respondWith(result);
         onView(withId(R.id.show_vegan_alternatives)).perform(click());
+
+        onView(withRecyclerView(R.id.resultsRecyclerView)
+                .atPositionOnView(0, R.id.rowTextTitle))
+                .check(matches(withText("Maple Syrup")));
+        onView(withRecyclerView(R.id.resultsRecyclerView)
+                .atPositionOnView(1, R.id.rowTextTitle))
+                .check(matches(withText("Bee Free Honee")));
+        onView(withRecyclerView(R.id.resultsRecyclerView)
+                .atPositionOnView(2, R.id.rowTextTitle))
+                .check(matches(withText("Agave Nectar")));
     }
 
     @Test
-    public void testAddToast() {
-        onView(withId(R.id.login)).perform(click());
-        onView(withId(R.id.fab_add_alternative)).perform(click());
-        onView(withId(R.id.name_of_the_product)).perform(replaceText("Lentils"));
-        onView(withId(R.id.description_tv)).perform(replaceText("Lentils belong to the legume family. They resemble a tiny bean, grow in pods, and come in red, brown, black, and green varieties. They also contain high levels of protein and fiber."));
-        onView(withId(R.id.add_vegan_alternatives)).perform(click());
-        onView(withText(R.string.add_alternative_success)).inRoot(withDecorView(not(is(addAlternativeActivityTestRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+    public void testSelectingAlternatives2() {
+        onView(withId(R.id.continue_as_guest)).perform(click());
+
+        onView(withId(R.id.products)).perform(click());
+        onData(anything()).atPosition(4).perform(click());
+        onView(withId(R.id.products)).check(matches(withSpinnerText(containsString("chicken eggs"))));
+
+        onView(withId(R.id.purpose)).perform(click());
+        onData(anything()).atPosition(2).perform(click());
+        onView(withId(R.id.purpose)).check(matches(withSpinnerText(containsString("omlette"))));
+
+        Intent intent = new Intent(context, ShowResultsActivity.class);
+        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, intent);
+        intending(allOf(toPackage("com.example.vegantranslations.view"), hasExtraWithKey("product"), hasExtraWithKey("purpose"))).respondWith(result);
+        onView(withId(R.id.show_vegan_alternatives)).perform(click());
+
+        onView(withRecyclerView(R.id.resultsRecyclerView)
+                .atPositionOnView(0, R.id.rowTextTitle))
+                .check(matches(withText("JUST Egg")));
+        onView(withRecyclerView(R.id.resultsRecyclerView)
+                .atPositionOnView(1, R.id.rowTextTitle))
+                .check(matches(withText("Tofu")));
+    }
+
+    @Test
+    public void testSelectingAlternatives3() {
+        onView(withId(R.id.continue_as_guest)).perform(click());
+
+        onView(withId(R.id.products)).perform(click());
+        onData(anything()).atPosition(4).perform(click());
+        onView(withId(R.id.products)).check(matches(withSpinnerText(containsString("chicken eggs"))));
+
+        onView(withId(R.id.purpose)).perform(click());
+        onData(anything()).atPosition(1).perform(click());
+        onView(withId(R.id.purpose)).check(matches(withSpinnerText(containsString("baking"))));
+
+        Intent intent = new Intent(context, ShowResultsActivity.class);
+        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, intent);
+        intending(allOf(toPackage("com.example.vegantranslations.view"), hasExtraWithKey("product"), hasExtraWithKey("purpose"))).respondWith(result);
+        onView(withId(R.id.show_vegan_alternatives)).perform(click());
+
+        onView(withRecyclerView(R.id.resultsRecyclerView)
+                .atPositionOnView(0, R.id.rowTextTitle))
+                .check(matches(withText("Flax seeds")));
     }
 }
