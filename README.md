@@ -1,5 +1,5 @@
 # Vegan Translations
-Project for AND1
+Project for [AND1](https://en.via.dk/tmh-courses/android-development) course.
 
 ## Screenshots
 ![image](https://user-images.githubusercontent.com/19744901/142891846-90fc2559-2eb7-4180-be0e-d9030c313656.png)
